@@ -12,10 +12,10 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="soton.ac.uk.seg.scenes.login.LoginController">
    <left>
-      <AnchorPane prefHeight="500.0" prefWidth="350.0" style="-fx-background-color: #011f4b;" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="500.0" prefWidth="350.0" style="-fx-background-color: #004c4c;" BorderPane.alignment="CENTER">
          <children>
-            <FontAwesomeIconView fill="#b3cde0" glyphName="CUBES" layoutX="79.0" layoutY="228.0" size="150" />
-            <Text fill="#b3cde0" layoutX="75.0" layoutY="296.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ad-Hoc Management">
+            <FontAwesomeIconView fill="#b2d8d8" glyphName="CUBES" layoutX="79.0" layoutY="228.0" size="150" />
+            <Text fill="#b2d8d8" layoutX="75.0" layoutY="296.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ad-Hoc Management">
                <font>
                   <Font size="20.0" />
                </font>
@@ -23,19 +23,19 @@
          </children></AnchorPane>
    </left>
    <right>
-      <AnchorPane prefHeight="500.0" prefWidth="350.0" style="-fx-background-color: #b3cde0;" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="500.0" prefWidth="350.0" style="-fx-background-color: #b2d8d8;" BorderPane.alignment="CENTER">
          <children>
-            <Button layoutX="156.0" layoutY="334.0" mnemonicParsing="false" onAction="#onHelloButtonClick" prefHeight="40.0" prefWidth="75.0" style="-fx-background-color: #011f4b;" text="Login" textFill="#b3cde0">
+            <Button layoutX="156.0" layoutY="334.0" mnemonicParsing="false" onAction="#onHelloButtonClick" prefHeight="40.0" prefWidth="75.0" style="-fx-background-color: #004c4c;" text="Login" textFill="#b2d8d8">
                <graphic>
                   <Label fx:id="welcomeText" />
                </graphic>
             </Button>
             <TextField fx:id="username" layoutX="112.0" layoutY="186.0" promptText="User Name" style="-fx-background-color: transparent; -fx-border-color: #011f4b; -fx-border-width: 0px 0px 2px 0px;" />
             <PasswordField fx:id="password" layoutX="112.0" layoutY="231.0" promptText="Password" style="-fx-background-color: transparent; -fx-border-color: #011f4b; -fx-border-width: 0px 0px 2px 0px;" />
-            <FontAwesomeIconView fill="#011f4b" glyphName="USER" layoutX="81.0" layoutY="210.0" size="20" />
-            <FontAwesomeIconView fill="#011f4b" glyphName="KEY" layoutX="78.0" layoutY="255.0" size="20" />
-            <FontAwesomeIconView fill="#011f4b" glyphName="USERS" layoutX="166.0" layoutY="90.0" size="50" />
-            <Text fill="#011f4b" layoutX="140.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Login">
+            <FontAwesomeIconView fill="#004c4c" glyphName="USER" layoutX="81.0" layoutY="210.0" size="20" />
+            <FontAwesomeIconView fill="#004c4c" glyphName="KEY" layoutX="78.0" layoutY="255.0" size="20" />
+            <FontAwesomeIconView fill="#004c4c" glyphName="USERS" layoutX="166.0" layoutY="90.0" size="50" />
+            <Text fill="#004c4c" layoutX="140.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Login">
                <font>
                   <Font size="21.0" />
                </font>
