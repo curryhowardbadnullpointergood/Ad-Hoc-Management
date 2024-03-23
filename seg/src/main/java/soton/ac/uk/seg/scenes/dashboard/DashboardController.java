@@ -1,25 +1,64 @@
 package soton.ac.uk.seg.scenes.dashboard;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.XYChart;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
-public class DashboardController implements Initializable{
-
-    @FXML
-    private LineChart<?,?> linechart;
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle){
-        
-        XYChart.Series series = new XYChart.Series();
+public class DashboardController {
 
 
-    }
 
-    
+  @FXML
+  private TextField totalcost;
+
+
+  @FXML
+  private TextField ctr;
+
+
+  @FXML
+  private TextField cpa;
+
+
+  @FXML
+  private TextField cpc;
+
+  
+  @FXML
+  private TextField cpm;
+
+
+  @FXML
+  private TextField bouncerate;
+
+
+  @FXML
+  private TextField numofimpressions;
+
+
+  @FXML
+  private TextField numofuniques;
+
+  @FXML
+  private TextField numofclicks;
+
+  @FXML
+  private TextField numofbounces;
+
+  @FXML
+  private TextField numofconversions;
+
+  
+
+
+
+
+
+
+  
 }
+
+
+

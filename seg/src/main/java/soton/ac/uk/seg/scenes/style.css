@@ -1,0 +1,10 @@
+.rounded-button {
+    -fx-background-radius: 5em;
+}
+
+
+.filter-button {
+
+    -fx-background-colour: transparent;
+    
+}
