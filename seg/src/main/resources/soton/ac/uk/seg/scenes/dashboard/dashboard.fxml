@@ -120,12 +120,12 @@
                         <Font name="Cantarell Extra Bold" size="20.0" />
                      </font>
                   </Text>
-                  <Button layoutX="35.0" layoutY="40.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="20.0" style="-fx-background-radius: 15px;">
+                  <Button layoutX="35.0" layoutY="40.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="20.0" style="-fx-background-radius: 15px; -fx-background-color: transparent; -fx-border-color: #004c4c; -fx-border-radius: 15px;">
                      <font>
                         <Font size="1.0" />
                      </font>
                   </Button>
-                  <Button layoutX="35.0" layoutY="63.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="20.0" style="-fx-background-radius: 15px;">
+                  <Button layoutX="35.0" layoutY="63.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="20.0" style="-fx-background-radius: 15px; -fx-background-color: transparent; -fx-border-radius: 15px; -fx-border-color: #004c4c;">
                      <font>
                         <Font size="1.0" />
                      </font>
@@ -139,7 +139,7 @@
                         <Font name="Cantarell Extra Bold" size="20.0" />
                      </font>
                   </Text>
-                  <Button layoutX="35.0" layoutY="41.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="20.0" style="-fx-background-radius: 5px;">
+                  <Button layoutX="35.0" layoutY="41.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="20.0" style="-fx-background-radius: 5px; -fx-background-color: transparent; -fx-border-color: #004c4c; -fx-border-radius: 5px;">
                      <font>
                         <Font size="1.0" />
                      </font>

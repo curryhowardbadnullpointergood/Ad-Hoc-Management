@@ -10,6 +10,7 @@ module soton.ac.uk.seg {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires java.sql;
 
     opens soton.ac.uk.seg to javafx.fxml;
     exports soton.ac.uk.seg;
