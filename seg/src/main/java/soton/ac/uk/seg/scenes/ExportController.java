@@ -11,15 +11,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-public class NewusersController {
+public class ExportController {
 
     private Stage stage;
     private Scene scene; 
     private Parent root; 
 
 
-    @FXML
-    private Button goback; 
 
     public void switchtoDashboard(ActionEvent event) throws IOException{
 
@@ -30,8 +28,4 @@ public class NewusersController {
     stage.show();
     
   }
-
-
-
-    
 }

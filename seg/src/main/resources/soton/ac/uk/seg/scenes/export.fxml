@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="800.0" minWidth="1600.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #b2d8d8;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="soton.ac.uk.seg.scenes.ExportController">
+   <children>
+      <AnchorPane layoutX="500.0" layoutY="175.0" minHeight="450.0" minWidth="600.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #006666; -fx-background-radius: 30px;">
+         <children>
+            <Text fill="#b2d8d8" layoutX="257.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Export:">
+               <font>
+                  <Font name="Cantarell Extra Bold" size="25.0" />
+               </font>
+            </Text>
+            <Button layoutX="272.0" layoutY="136.0" mnemonicParsing="false" style="-fx-background-color: #b2d8d8;" text="Graph" textFill="#004c4c" />
+            <Button layoutX="262.0" layoutY="199.0" mnemonicParsing="false" style="-fx-background-color: #b2d8d8;" text="Database" textFill="#004c4c" />
+         </children>
+      </AnchorPane>
+      <Button fx:id="goback" layoutX="28.0" layoutY="22.0" mnemonicParsing="false" onAction="#switchtoDashboard" prefHeight="30.0" prefWidth="43.0" style="-fx-background-color: #004c4c; -fx-background-radius: 15px;">
+         <graphic>
+            <FontAwesomeIconView fx:id="goback" fill="#b2d8d8" glyphName="BACKWARD" onMouseClicked="#switchtoDashboard" size="20" wrappingWidth="25.571428298950195" />
+         </graphic></Button>
+   </children>
+</AnchorPane>

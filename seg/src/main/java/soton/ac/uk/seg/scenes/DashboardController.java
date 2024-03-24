@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -61,12 +62,22 @@ public class DashboardController {
   private TextField numofconversions;
 
   
-
+ 
 
 
   public void switchtoNewUsers(ActionEvent event) throws IOException{
 
     root = FXMLLoader.load(getClass().getResource("newusers.fxml"));
+    stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+    scene = new Scene(root);
+    stage.setScene(scene);
+    stage.show();
+    
+  }
+
+  public void switchtoExport(ActionEvent event) throws IOException{
+
+    root = FXMLLoader.load(getClass().getResource("export.fxml"));
     stage = (Stage)((Node)event.getSource()).getScene().getWindow();
     scene = new Scene(root);
     stage.setScene(scene);
