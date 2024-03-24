@@ -272,5 +272,6 @@
       <TextField layoutX="409.0" layoutY="29.0" />
       <TextField layoutX="581.0" layoutY="29.0" />
       <Button layoutX="753.0" layoutY="29.0" mnemonicParsing="false" style="-fx-background-color: #002222; -fx-background-radius: 5px;" text="Submit" textFill="#b2d8d8" />
+      <Button layoutX="100.0" layoutY="29.0" mnemonicParsing="false" onAction="#switchtoNewUsers" style="-fx-background-color: #004c4c;" text="Add Users" textFill="#b2d8d8" />
    </children>
 </AnchorPane>

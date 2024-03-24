@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="800.0" minWidth="1600.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #b2d8d8;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane layoutX="500.0" layoutY="175.0" minHeight="450.0" minWidth="600.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #006666; -fx-background-radius: 30px;">
+         <children>
+            <Text fill="#b2d8d8" layoutX="207.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add New Users:">
+               <font>
+                  <Font name="Cantarell Extra Bold" size="25.0" />
+               </font>
+            </Text>
+            <TextField layoutX="219.0" layoutY="136.0" promptText="Username" style="-fx-background-radius: 10px;" />
+            <TextField layoutX="219.0" layoutY="205.0" promptText="Password" style="-fx-background-radius: 10px;" />
+            <TextField layoutX="219.0" layoutY="274.0" promptText="Permission level" style="-fx-background-radius: 10px;" />
+            <Button layoutX="258.0" layoutY="355.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="84.0" style="-fx-background-color: #b2d8d8; -fx-background-radius: 15px;" text="Submit" textFill="#004c4c" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
