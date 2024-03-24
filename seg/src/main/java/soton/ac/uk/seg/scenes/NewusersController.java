@@ -9,8 +9,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
+import soton.ac.uk.seg.backend.LoginDatabase;
 public class NewusersController {
 
     private Stage stage;
@@ -20,6 +21,15 @@ public class NewusersController {
 
     @FXML
     private Button goback; 
+
+    @FXML
+    private TextField username;
+
+    @FXML
+    private TextField password;
+
+    @FXML
+    private TextField permissionlevel;
 
     public void switchtoDashboard(ActionEvent event) throws IOException{
 
@@ -32,6 +42,25 @@ public class NewusersController {
   }
 
 
+
+  @FXML
+  protected void handleSubmit(ActionEvent event) {
+
+    System.out.println("Submit started!");
+
+    LoginDatabase ldb = new LoginDatabase();
+
+    System.out.println("new logindatabase Initialised!");
+
+    String u = username.getText();
+    String p = password.getText();
+    String pe = permissionlevel.getText();
+
+    System.out.println(u + " " +  p+ " " + pe);
+
+    ldb.addUser(u, p, pe);
+
+  }
 
     
 }

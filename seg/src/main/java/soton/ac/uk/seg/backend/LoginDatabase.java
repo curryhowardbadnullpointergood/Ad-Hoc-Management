@@ -156,4 +156,49 @@ public class LoginDatabase {
     }
     
 
+    public void addUser(String username, String password, String permissions){
+        if(!checkUsernameExist(username)){
+            
+            try {
+                conn.setAutoCommit(false);
+                stmt.execute(String.format("INSERT INTO users (username, password, permissions) VALUES ('%s', '%s', '%s')",
+                                username, password, permissions));
+                conn.commit();
+
+                System.out.println("User Added!");
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        
+        }
+
+        else {
+            System.out.println("Username already exists!");
+        }
+
+    }
+
+    public Boolean checkUsernameExist(String username) {
+
+        try {
+            ResultSet result = stmt.executeQuery("SELECT * FROM users");
+            
+            while (result.next()) {
+                String username1 = result.getString("username").trim();
+               
+                if (username.equals(username1)){
+                    
+                   return true;
+                }
+           
+            }
+        } 
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return false;
+    }
+
 }

@@ -16,10 +16,10 @@
                   <Font name="Cantarell Extra Bold" size="25.0" />
                </font>
             </Text>
-            <TextField layoutX="219.0" layoutY="136.0" promptText="Username" style="-fx-background-radius: 10px;" />
-            <TextField layoutX="219.0" layoutY="205.0" promptText="Password" style="-fx-background-radius: 10px;" />
-            <TextField layoutX="219.0" layoutY="274.0" promptText="Permission level" style="-fx-background-radius: 10px;" />
-            <Button layoutX="258.0" layoutY="355.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="84.0" style="-fx-background-color: #b2d8d8; -fx-background-radius: 15px;" text="Submit" textFill="#004c4c" />
+            <TextField layoutX="219.0" layoutY="136.0" promptText="Username" style="-fx-background-radius: 10px;" fx:id="username"/>
+            <TextField layoutX="219.0" layoutY="205.0" promptText="Password" style="-fx-background-radius: 10px;" fx:id="password"/>
+            <TextField layoutX="219.0" layoutY="274.0" promptText="Permissionlevel" style="-fx-background-radius: 10px;" fx:id="permissionlevel"/>
+            <Button layoutX="258.0" layoutY="355.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="84.0" style="-fx-background-color: #b2d8d8; -fx-background-radius: 15px;" text="Submit" textFill="#004c4c" onAction="#handleSubmit"/>
          </children>
       </AnchorPane>
       <Button fx:id="goback" layoutX="28.0" layoutY="22.0" mnemonicParsing="false" onAction="#switchtoDashboard" prefHeight="30.0" prefWidth="43.0" style="-fx-background-color: #004c4c; -fx-background-radius: 15px;">

@@ -95,6 +95,11 @@ public class DashboardController {
     
   }
 
+  private void displayImpressions(){
+     int number = 42; 
+     numofimpressions.setText(String.valueOf(number));
+  }
+
 
   
 }
