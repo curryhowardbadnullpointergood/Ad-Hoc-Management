@@ -6,6 +6,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LoginDatabase {
     Connection conn;
@@ -16,19 +18,14 @@ public class LoginDatabase {
 
     public LoginDatabase() {
 
-        System.out.println("made it");
+
+        
         String dbFile = "jdbc:sqlite:" + DB_PATH;
 
         try {
             conn = DriverManager.getConnection(dbFile);
             stmt = conn.createStatement();
 
-            // makes a new instance of this class 
-            LoginDatabase database = new LoginDatabase();
-            // imports in from the csv file 
-            System.out.println("made it - importing users");
-            // need to change to relative path later on !!
-            database.importUserlog(LOGIN_PATH);
 
 
             createTables();
@@ -98,19 +95,65 @@ public class LoginDatabase {
 
     }
 
-    private double getDoubleQuery(String query) {
-        try{
+    private String getStringQuery(String query) {
+        try {
             ResultSet result = stmt.executeQuery(query);
-            return result.getDouble(1);
+            if (result.next()) {
+                return result.getString(1); 
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return null; // Return null if no result found
+    }
+    
+    // Gets list of all users
+    public List<String> getAllUsers() {
+        List<String> usersList = new ArrayList<>();
+        try {
+            ResultSet result = stmt.executeQuery("SELECT * FROM users");
+            while (result.next()) {
+                String username = result.getString("username");
+                String password = result.getString("password");
+                String permissions = result.getString("permissions");
+                String userString = username + "," + password + "," + permissions + "\n";
+                usersList.add(userString);
+                
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return usersList;
     }
 
-    // gets list of all users
-    public double getAllUsers() {
-        return getDoubleQuery("""
-                SELECT * FROM("users");""");
+
+    // make sure no teo users have the same usernmae or this logic breaks, badly!
+    public String checkLogin(String username, String password) {
+
+        try {
+            ResultSet result = stmt.executeQuery("SELECT * FROM users");
+            
+            while (result.next()) {
+                String username1 = result.getString("username").trim();
+                String password1 = result.getString("password").trim();
+               
+                if (username.equals(username1)){
+                    
+                    if(password.equals(password1)){
+                        return "Good";
+                    }
+                    else{
+                        return "Password incorrect, please try again:";
+                    }
+                }
+           
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return "Username and Password not found!";
     }
+    
 
 }

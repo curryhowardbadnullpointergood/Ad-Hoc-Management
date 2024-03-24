@@ -14,9 +14,8 @@ module soton.ac.uk.seg {
 
     opens soton.ac.uk.seg to javafx.fxml;
     exports soton.ac.uk.seg;
-    exports soton.ac.uk.seg.scenes.login;
-    opens soton.ac.uk.seg.scenes.login to javafx.fxml;
-    exports soton.ac.uk.seg.scenes.dashboard;
-    opens soton.ac.uk.seg.scenes.dashboard to javafx.fxml;
+    opens soton.ac.uk.seg.scenes to javafx.fxml, javafx.graphics;
+    exports soton.ac.uk.seg.scenes;
+
 
 }

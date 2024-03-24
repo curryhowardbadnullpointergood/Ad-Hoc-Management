@@ -1,4 +1,4 @@
-package soton.ac.uk.seg.scenes.login;
+package soton.ac.uk.seg.scenes;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -7,12 +7,12 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class LoginApplication extends Application {
+public class DashboardApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(LoginApplication.class.getResource("login.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 700, 500);
-        stage.setTitle("Ad-Hoc Login");
+        FXMLLoader fxmlLoader = new FXMLLoader(DashboardApplication.class.getResource("dashboard.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1600, 800);
+        stage.setTitle("Ad-Hoc Dashboard");
         stage.setScene(scene);
 
         stage.setResizable(false);
@@ -22,4 +22,8 @@ public class LoginApplication extends Application {
     public static void main(String[] args) {
         launch();
     }
+
+    
+   
+
 }

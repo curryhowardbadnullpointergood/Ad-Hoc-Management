@@ -1,4 +1,4 @@
-package soton.ac.uk.seg.scenes.dashboard;
+package soton.ac.uk.seg.scenes;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
