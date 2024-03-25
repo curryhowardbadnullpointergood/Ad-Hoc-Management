@@ -1,0 +1,7 @@
+.tfield {
+    font-size: 16;
+    font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-text-fill: #b2d8d8;
+    -fx-font-weight: bold;
+}

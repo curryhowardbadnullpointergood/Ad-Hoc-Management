@@ -95,11 +95,97 @@ public class DashboardController {
     
   }
 
+  
+  public void switchtoLogin(ActionEvent event) throws IOException{
+
+    root = FXMLLoader.load(getClass().getResource("login.fxml"));
+    stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+    scene = new Scene(root);
+    stage.setScene(scene);
+    stage.show();
+    
+  }
+
+  @FXML
   private void displayImpressions(){
      int number = 42; 
      numofimpressions.setText(String.valueOf(number));
   }
 
+  @FXML
+  private void displayUniques(){
+     int number = 42; 
+     numofuniques.setText(String.valueOf(number));
+  }
+
+  @FXML
+  private void displayclicks(){
+     int number = 42; 
+     numofclicks.setText(String.valueOf(number));
+  }
+
+  @FXML
+  private void displaybounces(){
+     int number = 42; 
+     numofbounces.setText(String.valueOf(number));
+  }
+
+  @FXML
+  private void displayconversions(){
+     int number = 42; 
+     numofconversions.setText(String.valueOf(number));
+  }
+
+  @FXML
+  private void displayctr(){
+     int number = 42; 
+     ctr.setText(String.valueOf(number));
+  }
+
+  @FXML
+  private void displaycpa(){
+     int number = 42; 
+     cpa.setText(String.valueOf(number));
+  }
+
+  @FXML
+  private void displaycpc(){
+     int number = 42; 
+     cpc.setText(String.valueOf(number));
+  }
+
+  @FXML
+  private void displaycpm(){
+     int number = 42; 
+     cpm.setText(String.valueOf(number));
+  }
+
+  @FXML
+  private void displaybouncerate(){
+     int number = 42; 
+     bouncerate.setText(String.valueOf(number));
+  }
+
+
+
+  @FXML
+  private void initialize() {
+
+    this.displayImpressions();
+    this.displayUniques();
+    this.displayclicks();
+    this.displaybounces();
+    this.displayconversions();
+    this.displayctr();
+    this.displaycpa();
+    this.displaycpc();
+    this.displaycpm();
+    this.displaybouncerate();
+      
+  }
+
+
+  
 
   
 }

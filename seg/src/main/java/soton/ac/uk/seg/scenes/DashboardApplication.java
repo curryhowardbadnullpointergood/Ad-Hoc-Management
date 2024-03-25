@@ -13,6 +13,7 @@ public class DashboardApplication extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(DashboardApplication.class.getResource("dashboard.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1600, 800);
         stage.setTitle("Ad-Hoc Dashboard");
+        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         stage.setScene(scene);
 
         stage.setResizable(false);
