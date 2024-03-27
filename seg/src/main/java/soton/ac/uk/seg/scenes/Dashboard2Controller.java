@@ -13,11 +13,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class DashboardController {
+public class Dashboard2Controller {
 
     
     private Stage stage;
@@ -67,6 +68,9 @@ public class DashboardController {
   @FXML
   private Button allmenu; 
 
+  @FXML
+  private VBox sidebar;
+
   
  
 
@@ -112,7 +116,7 @@ public class DashboardController {
     
   }
 
-  /*public void sidebartoggle(ActionEvent event) throws IOException{
+  public void sidebartoggle(ActionEvent event) throws IOException{
 
    if (!sidebar.isVisible()){
       sidebar.setVisible(true);
@@ -120,17 +124,9 @@ public class DashboardController {
    else{
       sidebar.setVisible(false);
    }
- }*/
-
- public void switchtodashboard2(ActionEvent event) throws IOException{
-
-   root = FXMLLoader.load(getClass().getResource("dashboard2.fxml"));
-   stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-   scene = new Scene(root);
-   stage.setScene(scene);
-   stage.show();
-
  }
+
+
 
   /*@FXML
   private void displayImpressions(){
