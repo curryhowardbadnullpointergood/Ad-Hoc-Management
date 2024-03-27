@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class DashboardController {
@@ -21,7 +22,7 @@ public class DashboardController {
     private Scene scene; 
     private Parent root; 
 
-  @FXML
+ /*  @FXML
   private TextField totalcost;
 
 
@@ -59,8 +60,13 @@ public class DashboardController {
   private TextField numofbounces;
 
   @FXML
-  private TextField numofconversions;
+  private TextField numofconversions;*/
 
+  @FXML
+  private Button allmenu; 
+
+  @FXML
+  private VBox sidebar;
   
  
 
@@ -106,7 +112,17 @@ public class DashboardController {
     
   }
 
-  @FXML
+  public void sidebartoggle(ActionEvent event) throws IOException{
+
+   if (sidebar.isVisible()){
+      sidebar.setVisible(false);
+   }
+   else{
+      sidebar.setVisible(true);
+   }
+ }
+
+  /*@FXML
   private void displayImpressions(){
      int number = 42; 
      numofimpressions.setText(String.valueOf(number));
@@ -183,7 +199,7 @@ public class DashboardController {
     this.displaybouncerate();
       
   }
-
+*/
 
   
 

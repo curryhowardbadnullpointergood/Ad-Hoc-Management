@@ -5,3 +5,43 @@
     -fx-text-fill: #b2d8d8;
     -fx-font-weight: bold;
 }
+
+.scroll-pane {
+    background-color:  	#b2d8d8;
+    -fx-background-color:  	#b2d8d8;
+}
+
+.scroll-bar:horizontal, .scroll-bar:vertical{
+    background-color:  	#b2d8d8;
+    -fx-background-color:transparent;
+}
+
+.increment-button, .decrement-button {
+    background-color:  	#b2d8d8;
+    border-color: #b2d8d8;
+    -fx-background-color: #004444;
+    -fx-border-color: transparent;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    background-color: #b2d8d8;
+    border-color: #b2d8d8;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    background-color: #b2d8d8;
+    -fx-background-color: white;
+    -fx-background-radius: 5em;
+}
+
+.scroll-bar:horizontal.corner{
+    background-color: #b2d8d8;
+    border-color: #b2d8d8;
+    -fx-border-color: #b2d8d8;
+
+}
