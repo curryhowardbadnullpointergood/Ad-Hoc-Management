@@ -71,6 +71,9 @@ public class Dashboard2Controller {
   @FXML
   private VBox sidebar;
 
+  @FXML
+  private Button Metrics;
+
   
  
 
@@ -115,6 +118,17 @@ public class Dashboard2Controller {
     stage.show();
     
   }
+
+
+  public void switchtoMetrics(ActionEvent event) throws IOException{
+
+   root = FXMLLoader.load(getClass().getResource("metrics.fxml"));
+   stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+   scene = new Scene(root);
+   stage.setScene(scene);
+   stage.show();
+   
+ }
 
   public void sidebartoggle(ActionEvent event) throws IOException{
 
