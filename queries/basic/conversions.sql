@@ -1,0 +1,1 @@
+SELECT COUNT(*) FROM clicks INNER JOIN servers ON clicks."ID" = servers."ID" AND clicks."Date" = servers."Entry Date" WHERE "Conversion" = 'Yes';

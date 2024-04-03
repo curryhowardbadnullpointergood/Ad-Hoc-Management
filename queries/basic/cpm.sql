@@ -1,0 +1,1 @@
+SELECT ((SELECT SUM("Click Cost") FROM clicks) + (SELECT SUM("Impression Cost") FROM impressions)) * 1000.0 / (SELECT COUNT(*) FROM impressions);

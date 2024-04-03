@@ -1,0 +1,1 @@
+SELECT (SELECT COUNT(*) FROM clicks) * 1.0 / (SELECT COUNT(*) FROM impressions);
