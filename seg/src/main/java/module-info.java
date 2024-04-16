@@ -11,6 +11,8 @@ module soton.ac.uk.seg {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires java.sql;
+    requires mail;
+    requires activation;
 
     opens soton.ac.uk.seg to javafx.fxml;
     exports soton.ac.uk.seg;

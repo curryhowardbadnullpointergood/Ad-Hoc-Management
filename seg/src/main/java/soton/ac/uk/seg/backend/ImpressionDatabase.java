@@ -15,7 +15,7 @@ public class ImpressionDatabase extends Thread{
     Statement stmt;
 
     public ImpressionDatabase() {
-        String dbFile = "jdbc:sqlite:" + "/home/kone/Projects/GitHub/Ad-Hoc-Management/seg/src/main/java/soton/ac/uk/seg/backend/database/impressions.db";
+        String dbFile = "jdbc:sqlite:" + "./src/main/java/soton/ac/uk/seg/backend/database/impressions.db";
 
         try {
             conn = DriverManager.getConnection(dbFile);
@@ -65,7 +65,7 @@ public class ImpressionDatabase extends Thread{
     public void run() {
 
         ImpressionDatabase idb = new ImpressionDatabase();
-        idb.importImpressionLog("/home/kone/Projects/GitHub/Ad-Hoc-Management/seg/src/main/java/soton/ac/uk/seg/backend/database/impression_log.csv");
+        idb.importImpressionLog("./2_week_campaign_1/impression_log.csv");
        
     }
 

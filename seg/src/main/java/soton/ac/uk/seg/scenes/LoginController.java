@@ -60,5 +60,18 @@ public class LoginController {
 
     }
 
+
+    public void switchrecoverpassword(ActionEvent event) throws IOException {
+
+        root = FXMLLoader.load(getClass().getResource("recoverpassword.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+        
+
+
+    }
+
     
 }

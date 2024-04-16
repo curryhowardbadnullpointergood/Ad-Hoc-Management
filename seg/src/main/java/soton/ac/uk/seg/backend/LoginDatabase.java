@@ -13,8 +13,8 @@ public class LoginDatabase {
     Connection conn;
     Statement stmt;
    
-    private static final String LOGIN_PATH = "/home/kone/Projects/GitHub/Ad-Hoc-Management/seg/src/main/java/soton/ac/uk/seg/backend/database/login.csv";
-    private static final String DB_PATH = "/home/kone/Projects/GitHub/Ad-Hoc-Management/seg/src/main/java/soton/ac/uk/seg/backend/database/login.db";
+    private static final String LOGIN_PATH = "./src/main/java/soton/ac/uk/seg/backend/database/login.csv";
+    private static final String DB_PATH = "./src/main/java/soton/ac/uk/seg/backend/database/login.db";
 
     public LoginDatabase() {
 

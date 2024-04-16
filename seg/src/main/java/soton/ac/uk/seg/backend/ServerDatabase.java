@@ -15,7 +15,7 @@ public class ServerDatabase extends Thread{
     Statement stmt;
 
     public ServerDatabase() {
-        String dbFile = "jdbc:sqlite:" + "/home/kone/Projects/GitHub/Ad-Hoc-Management/seg/src/main/java/soton/ac/uk/seg/backend/database/servers.db";
+        String dbFile = "jdbc:sqlite:" + "./src/main/java/soton/ac/uk/seg/backend/database/servers.db";
 
         try {
             conn = DriverManager.getConnection(dbFile);
@@ -65,7 +65,7 @@ public class ServerDatabase extends Thread{
     public void run() {
 
         ServerDatabase sdb = new ServerDatabase();
-        sdb.importServerLog("/home/kone/Projects/GitHub/Ad-Hoc-Management/seg/src/main/java/soton/ac/uk/seg/backend/database/server_log.csv");
+        sdb.importServerLog("./2_week_campaign_1/server_log.csv");
        
     }
 

@@ -40,6 +40,11 @@
                   <Font size="21.0" />
                </font>
             </Text>
+            <Button fx:id="recoverpassword" layoutX="155.0" layoutY="445.0" mnemonicParsing="false" onAction="#switchrecoverpassword" prefHeight="25.0" prefWidth="75.0" style="-fx-background-color: #004c4c;" text="Recover" textFill="#b2d8d8">
+               <graphic>
+                  <Label fx:id="welcomeText1" />
+               </graphic>
+            </Button>
          </children></AnchorPane>
    </right>
 </BorderPane>

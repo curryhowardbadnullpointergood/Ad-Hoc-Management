@@ -15,7 +15,7 @@ public class ClicksDatabase extends Thread{
     Statement stmt;
 
     public ClicksDatabase() {
-        String dbFile = "jdbc:sqlite:" + "/home/kone/Projects/GitHub/Ad-Hoc-Management/seg/src/main/java/soton/ac/uk/seg/backend/database/clicks.db";
+        String dbFile = "jdbc:sqlite:" + "./src/main/java/soton/ac/uk/seg/backend/database/clicks.db";
 
         try {
             conn = DriverManager.getConnection(dbFile);
@@ -63,7 +63,7 @@ public class ClicksDatabase extends Thread{
     public void run() {
 
         ClicksDatabase cdb = new ClicksDatabase();
-        cdb.importClickLog("/home/kone/Projects/GitHub/Ad-Hoc-Management/seg/src/main/java/soton/ac/uk/seg/backend/database/click_log.csv");
+        cdb.importClickLog("./2_week_campaign_1/click_log.csv");
        
     }
 
