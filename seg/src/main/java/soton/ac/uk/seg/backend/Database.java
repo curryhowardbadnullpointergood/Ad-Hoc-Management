@@ -248,13 +248,16 @@ public class Database {
         String query = "";
         switch(fieldToCalculate) {
             case "impressions" -> query = "SELECT <time interval> AS time_interval, COUNT(*) FROM impressions WHERE <filter> GROUP BY time_interval;";
-            case "clicks" -> query = "SELECT COUNT(*) FROM clicks INNER JOIN impressions WHERE clicks.ID = impressions.ID WHERE <filter> GROUP BY time_interval;";
-            case "uniques" -> query = "SELECT COUNT(DISTINCT ID) FROM clicks INNER JOIN impressions WHERE clicks.ID = impressions.ID WHERE <filter> GROUP BY <time interval>;";
-            case "bounces" -> query = "SELECT COUNT(*) FROM clicks INNER JOIN impressions ON clicks.ID = impressions.ID INNER JOIN servers ON clicks.ID = servers.ID AND clicks.Date = servers.\"Entry Date\" WHERE <bounce logic> AND <filter> GROUP BY <time interval>;";
-            case "conversions" -> query = "SELECT COUNT(*) FROM clicks INNER JOIN impressions ON clicks.ID = impressions.ID INNER JOIN servers ON clicks.ID = servers.ID AND clicks.Date = servers.\"Entry Date\" WHERE Conversion = 'Yes' AND <filter> GROUP BY <time interval>;";
-            case "total_cost" -> query = "SELECT SUM(\"Click Cost\") + SUM(\"Impression Cost\") FROM clicks INNER JOIN impressions ON clicks.ID = impressions.ID WHERE <filter> GROUP BY <time interval>;";
-            case "ctr" -> query = "SELECT COUNT(\"Click Cost\") * 1.0 / COUNT(\"Impression Cost\") FROM clicks LEFT JOIN impressions ON clicks.ID = impressions.ID WHERE <filter> GROUP BY <time interval>;";
-            case "cpa" -> query = "";
+            case "clicks" -> query = "SELECT <time interval> AS time_interval, COUNT(*) FROM clicks INNER JOIN impressions ON clicks.ID = impressions.ID WHERE <filter> GROUP BY time_interval;";
+            case "uniques" -> query = "SELECT <time interval> AS time_interval, COUNT(DISTINCT clicks.ID) FROM clicks INNER JOIN impressions ON clicks.ID = impressions.ID WHERE <filter> GROUP BY time_interval;";
+            case "bounces" -> query = "SELECT <time interval> AS time_interval, COUNT(*) FROM clicks INNER JOIN impressions ON clicks.ID = impressions.ID INNER JOIN servers ON clicks.ID = servers.ID AND clicks.Date = servers.\"Entry Date\" WHERE <bounce logic> AND <filter> GROUP BY time_interval;";
+            case "conversions" -> query = "SELECT <time interval> AS time_interval, COUNT(*) FROM clicks INNER JOIN impressions ON clicks.ID = impressions.ID INNER JOIN servers ON clicks.ID = servers.ID AND clicks.Date = servers.\"Entry Date\" WHERE Conversion = 'Yes' AND <filter> GROUP BY time_interval;";
+            case "total_cost" -> query = "SELECT <time interval> AS time_interval, SUM(\"Click Cost\") + SUM(\"Impression Cost\") FROM clicks INNER JOIN impressions ON clicks.ID = impressions.ID WHERE <filter> GROUP BY time_interval;";
+            case "ctr" -> query = "SELECT <time interval> AS time_interval, (COUNT(clicks.ID) * 1.0) / COUNT(impressions.ID) FROM clicks LEFT JOIN impressions ON clicks.ID = impressions.ID WHERE <filter> GROUP BY time_interval;";
+            case "cpa" -> query = "SELECT <time interval> AS time_interval, ((SUM(\"Click Cost\") + SUM(\"Impression Cost\")) * 1.0) / COUNT(*) FROM clicks INNER JOIN servers ON clicks.ID = servers.ID AND clicks.Date = servers.\"Entry Date\" INNER JOIN impressions ON clicks.ID = impressions.ID WHERE \"Conversion\" = 'Yes' AND <filter> GROUP BY time_interval;";
+            case "cpc" -> query = "SELECT <time interval> AS time_interval, ((SUM(\"Click Cost\") + SUM(\"Impression Cost\")) * 1.0) / COUNT(*) FROM clicks INNER JOIN impressions ON clicks.ID = impressions.ID WHERE <filter> GROUP BY time_interval;";
+            case "cpm" -> query = "SELECT <time interval> AS time_interval, ((SUM(\"Click Cost\") + SUM(\"Impression Cost\")) * 1000.0) / COUNT(*) FROM clicks INNER JOIN impressions ON clicks.ID = impressions.ID WHERE <filter> GROUP BY time_interval;";
+            case "bounce_rate" -> query = "SELECT <time interval> AS time_interval, (SELECT COUNT(*) FROM clicks INNER JOIN servers ON clicks.ID = servers.ID AND clicks.Date = servers.\"Entry Date\" WHERE \"Pages Viewed\" < 2) * 1.0 / (SELECT COUNT(*) FROM clicks) GROUP BY time_interval;";
         }
 
         // String[] fieldParams = new String[3];
@@ -272,6 +275,10 @@ public class Database {
         //     // case "bounce_rate"
         // }
 
+        String bounceLogic = "";
+        if(bounceDef == "pages") bounceLogic = "servers.\"Pages Viewed\" <= " + bounceNum;
+        if(bounceDef == "time") bounceLogic = "strftime('%Y-%m-%d %H:%M:%S', servers.\"Exit Date\") - strftime('%Y-%m-%d %H:%M:%S', servers.\"Entry Date\") <= " + bounceNum;
+
         String startDateFilter = "true";
         if(startDate != "") startDateFilter = "impressions.Date >= '" + startDate + "'";
 
@@ -280,6 +287,7 @@ public class Database {
 
         query = query.replaceAll("<filter>", filterStatement + " AND " + startDateFilter + " AND " + endDateFilter);
         query = query.replaceAll("<time interval>", timeGrouping);
+        query = query.replaceAll("<bounce logic>", bounceLogic);
 
         return "WITH weekStartDate AS (SELECT MIN(julianday('%s')) AS d) " + query;
 
