@@ -216,6 +216,89 @@ public class Database {
                 SELECT & FROM("users");""");
     }
 
+    // gendersSelected: list containing "Male" and/or "Female"
+    // incomeSelected: list containing "Low", "Medium" and/or "High"
+    // ageSelected: list containing "<25", "25-34", "35-44", "45-54" and/or ">54"
+    // contextSelected: list containing "Social Media", "Shopping", "Blog", "News", "Hobbies", "Travel"
+    // timeInterval: "hour", "day" or "week"
+    // fieldToCalculate: "impressions", "clicks", "uniques", "bounces", "conversions", "total_cost", "ctr", "cpa", "cpc", "cpm" or "bounce_rate"
+    // startDate: "yyyy-mm-dd" e.g. "2015-01-01"
+    // endDate: "yyyy-mm-dd" e.g. "2015-01-31"
+    // bounceDef: either "time" or "pages"
+    // bounceNum: number of "things" needed for bounce e.g. 5, 10 etc.
+
+    public static String getGraphQuery(String fieldToCalculate, String timeInterval, String[] gendersSelected,
+                                    String[] incomeSelected, String[] ageSelected, String[] contextSelected,
+                                    String bounceDef, int bounceNum, String startDate, String endDate) {
+
+        String filterStatement = "(" + makeFilterStatement("Gender", gendersSelected) + " AND " +
+                                 makeFilterStatement("Income", incomeSelected) + " AND " +
+                                 makeFilterStatement("Age", ageSelected) + " AND " +
+                                 makeFilterStatement("Context", contextSelected) + ")";
+        
+        String timeGrouping = "";
+        switch(timeInterval) {
+            case "hour" -> timeGrouping = "strftime('%Y-%m-%d %H:00', impressions.Date)";
+            case "day" -> timeGrouping = "strftime('%Y-%m-%d', impressions.Date)";
+            case "week" -> timeGrouping = "date((SELECT d FROM weekStartDate) + round((julianday(impressions.Date) - (SELECT d FROM weekStartDate)) / 7) * 7)";
+        }
+
+        // TODO handle different bounce logics
+        
+        String query = "";
+        switch(fieldToCalculate) {
+            case "impressions" -> query = "SELECT <time interval> AS time_interval, COUNT(*) FROM impressions WHERE <filter> GROUP BY time_interval;";
+            case "clicks" -> query = "SELECT COUNT(*) FROM clicks INNER JOIN impressions WHERE clicks.ID = impressions.ID WHERE <filter> GROUP BY time_interval;";
+            case "uniques" -> query = "SELECT COUNT(DISTINCT ID) FROM clicks INNER JOIN impressions WHERE clicks.ID = impressions.ID WHERE <filter> GROUP BY <time interval>;";
+            case "bounces" -> query = "SELECT COUNT(*) FROM clicks INNER JOIN impressions ON clicks.ID = impressions.ID INNER JOIN servers ON clicks.ID = servers.ID AND clicks.Date = servers.\"Entry Date\" WHERE <bounce logic> AND <filter> GROUP BY <time interval>;";
+            case "conversions" -> query = "SELECT COUNT(*) FROM clicks INNER JOIN impressions ON clicks.ID = impressions.ID INNER JOIN servers ON clicks.ID = servers.ID AND clicks.Date = servers.\"Entry Date\" WHERE Conversion = 'Yes' AND <filter> GROUP BY <time interval>;";
+            case "total_cost" -> query = "SELECT SUM(\"Click Cost\") + SUM(\"Impression Cost\") FROM clicks INNER JOIN impressions ON clicks.ID = impressions.ID WHERE <filter> GROUP BY <time interval>;";
+            case "ctr" -> query = "SELECT COUNT(\"Click Cost\") * 1.0 / COUNT(\"Impression Cost\") FROM clicks LEFT JOIN impressions ON clicks.ID = impressions.ID WHERE <filter> GROUP BY <time interval>;";
+            case "cpa" -> query = "";
+        }
+
+        // String[] fieldParams = new String[3];
+        // switch(fieldToCalculate) {
+        //     case "impressions" -> fieldParams = new String[]{"COUNT(*)", "impressions", "true"};
+        //     case "clicks" -> fieldParams = new String[]{"COUNT(*)", "clicks INNER JOIN impressions ON clicks.ID = impressions.ID", "true"};
+        //     case "uniques" -> fieldParams = new String[]{"COUNT(DISTINCT ID)", "clicks", "true"};
+        //     case "bounces" -> fieldParams = new String[]{"COUNT(*)", "clicks INNER JOIN servers ON clicks.\"ID\" = servers.\"ID\"", "\"Pages Viewed\" < 2"};
+        //     case "conversions" -> fieldParams = new String[]{"COUNT(*)", "clicks INNER JOIN servers ON clicks.\"ID\" = servers.\"ID\"", "\"Conversion\" = 'Yes'"};
+        //     case "total_cost" -> fieldParams = new String[]{"(SELECT SUM(\"Click Cost\") FROM clicks) + (SELECT SUM(\"Impression Cost\") FROM impressions)", "impressions", "True"}; // TODO fix
+        //     // case "ctr" -> fieldParams = SELECT (SELECT COUNT(*) FROM clicks) * 1.0 / (SELECT COUNT(*) FROM impressions);
+        //     // case "cpa"
+        //     // case "cpc"
+        //     // case "cpm"
+        //     // case "bounce_rate"
+        // }
+
+        String startDateFilter = "true";
+        if(startDate != "") startDateFilter = "impressions.Date >= '" + startDate + "'";
+
+        String endDateFilter = "true";
+        if(endDate != "") endDateFilter = "impressions.Date <= '" + endDate + "'";
+
+        query = query.replaceAll("<filter>", filterStatement + " AND " + startDateFilter + " AND " + endDateFilter);
+        query = query.replaceAll("<time interval>", timeGrouping);
+
+        return "WITH weekStartDate AS (SELECT MIN(julianday('%s')) AS d) " + query;
+
+        // return String.format("""
+        //     WITH weekStartDate AS (SELECT MIN(julianday('%s')) AS d)
+        //     SELECT %s AS time_interval, %s FROM %s WHERE (%s) AND (%s) AND (%s) AND (%s) GROUP BY time_interval;""",
+        //     startDate, timeGrouping, fieldParams[0], fieldParams[1], fieldParams[2], filterStatement, startDateFilter, endDateFilter);
+    }
+
+    public static String makeFilterStatement(String field, String[] values) {
+        if(values.length == 0) return "true";
+        StringBuilder statement = new StringBuilder();
+        for(String value: values) {
+            statement.append("\"").append(field).append("\" = '").append(value).append("' OR ");
+        }
+        statement.append("false");
+        return statement.toString();
+    }
+
    
 
 }
