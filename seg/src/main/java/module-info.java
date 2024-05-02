@@ -13,6 +13,14 @@ module soton.ac.uk.seg {
     requires java.sql;
     requires mail;
     requires activation;
+    requires com.google.api.services.gmail;
+    requires org.apache.commons.codec;
+    requires com.google.api.client;
+    requires com.google.api.client.json.gson;
+    requires google.api.client;
+    requires com.google.api.client.extensions.jetty.auth;
+    requires com.google.api.client.auth;
+    requires com.google.api.client.extensions.java6.auth;
 
     opens soton.ac.uk.seg to javafx.fxml;
     exports soton.ac.uk.seg;

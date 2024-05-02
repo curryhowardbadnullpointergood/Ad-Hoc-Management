@@ -201,6 +201,30 @@ public class LoginDatabase {
         return false;
     }
 
+
+    public String getPassword(String username) {
+
+        try {
+            ResultSet result = stmt.executeQuery("SELECT * FROM users");
+            
+            while (result.next()) {
+                String username1 = result.getString("username").trim();
+               
+                if (username.equals(username1)){
+                    
+                    String pass = result.getString("password").trim();
+                   return pass;
+                }
+           
+            }
+        } 
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return "null";
+    }
+
     
 
 }
