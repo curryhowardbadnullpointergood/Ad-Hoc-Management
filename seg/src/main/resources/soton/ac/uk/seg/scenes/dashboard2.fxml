@@ -15,12 +15,12 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="800.0" minWidth="1600.0" prefHeight="800.0" prefWidth="1600.0" style="-fx-background-color: #004444;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="soton.ac.uk.seg.scenes.Dashboard2Controller">
    <children>
-      <LineChart layoutX="50.0" layoutY="55.0" minHeight="450.0" minWidth="1000.0" prefHeight="703.0" prefWidth="1507.0">
+      <LineChart fx:id="chart" layoutX="50.0" layoutY="55.0" minHeight="450.0" minWidth="1000.0" prefHeight="703.0" prefWidth="1507.0">
         <xAxis>
-          <CategoryAxis side="BOTTOM" />
+          <CategoryAxis side="BOTTOM" style="-fx-tick-label-fill: white;"/>
         </xAxis>
         <yAxis>
-          <NumberAxis side="LEFT" />
+          <NumberAxis side="LEFT" style="-fx-tick-label-fill: white;"/>
         </yAxis>
       </LineChart>
       <TextField layoutX="550.0" layoutY="745.0" />
@@ -179,7 +179,8 @@
                         <Button fx:id="week" layoutX="20.0" layoutY="912.0" mnemonicParsing="false" style="-fx-background-color: #004444; -fx-border-color: #006666; -fx-border-radius: 5px;" text="Week" textFill="#b2d8d8" />
                         <ChoiceBox fx:id="fields" layoutX="20.0" layoutY="958.0" prefHeight="28.0" prefWidth="129.0" style="-fx-background-color: #004444; -fx-border-color: #006666; -fx-border-radius: 5px;" />
                         <Button layoutX="19.0" layoutY="1004.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="62.0" style="-fx-background-color: #004444;" text="Filter" textFill="#b2d8d8" />
-                        <Button fx:id="goback" layoutX="16.0" layoutY="1083.0" mnemonicParsing="false" onAction="#switchtoLogin" prefHeight="26.0" prefWidth="92.0" style="-fx-background-color: #004444; -fx-background-radius: 15px;" text="Logout" textFill="#b2d8d8" />
+                        <Button fx:id="displayData" layoutX="16.0" layoutY="1083.0" mnemonicParsing="false" onAction="#displayData" prefHeight="26.0" prefWidth="92.0" style="-fx-background-color: #004444; -fx-background-radius: 15px;" text="Display" textFill="#b2d8d8" />
+                        <Button fx:id="goback" layoutX="16.0" layoutY="1183.0" mnemonicParsing="false" onAction="#switchtoLogin" prefHeight="26.0" prefWidth="92.0" style="-fx-background-color: #004444; -fx-background-radius: 15px;" text="Logout" textFill="#b2d8d8" />
                         <Button fx:id="metrics" layoutX="19.0" layoutY="1044.0" mnemonicParsing="false" onAction="#switchtoMetrics" style="-fx-background-color: #004444;" text="Metrics" textFill="#b2d8d8" />
                      </children>
                   </AnchorPane>

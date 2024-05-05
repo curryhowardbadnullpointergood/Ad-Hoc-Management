@@ -289,7 +289,7 @@ public class Database {
         query = query.replaceAll("<time interval>", timeGrouping);
         query = query.replaceAll("<bounce logic>", bounceLogic);
 
-        return "WITH weekStartDate AS (SELECT MIN(julianday('%s')) AS d) " + query;
+        return "WITH weekStartDate AS (SELECT MIN(julianday(impressions.Date)) AS d) " + query;
 
         // return String.format("""
         //     WITH weekStartDate AS (SELECT MIN(julianday('%s')) AS d)

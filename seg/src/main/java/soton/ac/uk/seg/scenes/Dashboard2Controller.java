@@ -10,17 +10,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import soton.ac.uk.seg.backend.Database;
 
 public class Dashboard2Controller {
 
-    
+
     private Stage stage;
     private Scene scene; 
     private Parent root; 
@@ -74,7 +73,19 @@ public class Dashboard2Controller {
   @FXML
   private Button Metrics;
 
-  
+  @FXML
+  private LineChart chart;
+
+  @FXML
+  private ChoiceBox<String> fields;
+
+  @FXML
+  public void initialize() {
+      fields.getItems().addAll("impressions", "clicks", "uniques", "bounces",
+              "conversions", "total_cost", "ctr", "cpa", "cpc", "cpm", "bounce_rate");
+      chart.setLegendVisible(false);
+
+  }
  
 
 
@@ -139,6 +150,24 @@ public class Dashboard2Controller {
       sidebar.setVisible(false);
    }
  }
+
+    public void displayData(ActionEvent actionEvent) {
+        if(chart.getData() != null)
+            chart.getData().clear();
+
+        String query = Database.getGraphQuery(fields.getValue(), "week", new String[]{}, new String[]{},
+                new String[]{}, new String[]{}, "pages", 3, "", "");
+        // TODO wire up to database
+        System.out.println(query);
+
+
+        XYChart.Series<String, Number> data = new XYChart.Series<>();
+        data.getData().add(new XYChart.Data("20204", 12345));
+        data.getData().add(new XYChart.Data("24204", 122345));
+        data.getData().add(new XYChart.Data("25204", 345));
+        data.getData().add(new XYChart.Data("206204", 2345));
+        chart.getData().add(data);
+    }
 
 
 
