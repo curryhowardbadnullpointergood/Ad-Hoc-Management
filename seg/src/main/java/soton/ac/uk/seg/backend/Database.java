@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.*;
+import java.util.List;
 
 public class Database {
     Connection conn;
@@ -227,8 +228,8 @@ public class Database {
     // bounceDef: either "time" or "pages"
     // bounceNum: number of "things" needed for bounce e.g. 5, 10 etc.
 
-    public static String getGraphQuery(String fieldToCalculate, String timeInterval, String[] gendersSelected,
-                                    String[] incomeSelected, String[] ageSelected, String[] contextSelected,
+    public static String getGraphQuery(String fieldToCalculate, String timeInterval, List<String> gendersSelected,
+                                    List<String> incomeSelected, List<String> ageSelected, List<String> contextSelected,
                                     String bounceDef, int bounceNum, String startDate, String endDate) {
 
         String filterStatement = "(" + makeFilterStatement("Gender", gendersSelected) + " AND " +
@@ -297,8 +298,8 @@ public class Database {
         //     startDate, timeGrouping, fieldParams[0], fieldParams[1], fieldParams[2], filterStatement, startDateFilter, endDateFilter);
     }
 
-    public static String makeFilterStatement(String field, String[] values) {
-        if(values.length == 0) return "true";
+    public static String makeFilterStatement(String field, List<String> values) {
+        if(values.isEmpty()) return "true";
         StringBuilder statement = new StringBuilder();
         for(String value: values) {
             statement.append("\"").append(field).append("\" = '").append(value).append("' OR ");

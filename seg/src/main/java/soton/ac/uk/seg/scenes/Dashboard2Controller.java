@@ -1,6 +1,7 @@
 package soton.ac.uk.seg.scenes;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.almasb.fxgl.entity.action.Action;
 
@@ -21,7 +22,7 @@ public class Dashboard2Controller {
 
 
     private Stage stage;
-    private Scene scene; 
+    private Scene scene;
     private Parent root; 
 
  /*  @FXML
@@ -64,99 +65,171 @@ public class Dashboard2Controller {
   @FXML
   private TextField numofconversions;*/
 
-  @FXML
-  private Button allmenu; 
+    @FXML
+    private Button allmenu;
 
-  @FXML
-  private VBox sidebar;
+    @FXML
+    private VBox sidebar;
 
-  @FXML
-  private Button Metrics;
+    @FXML
+    private Button Metrics;
 
-  @FXML
-  private LineChart chart;
+    @FXML
+    private LineChart chart;
 
-  @FXML
-  private ChoiceBox<String> fields;
+    @FXML
+    private ChoiceBox<String> fields;
 
-  @FXML
-  public void initialize() {
-      fields.getItems().addAll("impressions", "clicks", "uniques", "bounces",
-              "conversions", "total_cost", "ctr", "cpa", "cpc", "cpm", "bounce_rate");
-      chart.setLegendVisible(false);
+    @FXML
+    private ToggleButton time;
 
-  }
- 
+    @FXML
+    private ToggleButton pages;
+
+    @FXML
+    private TextField startdate;
+    @FXML
+    private TextField enddate;
+
+    @FXML
+    private ToggleButton male;
+    @FXML
+    private ToggleButton female;
+
+    @FXML
+    private ToggleButton low;
+    @FXML
+    private ToggleButton medium;
+    @FXML
+    private ToggleButton high;
+
+    @FXML
+    private ToggleButton undertwentyfive;
+    @FXML
+    private ToggleButton twentyfivetothirtyfour;
+    @FXML
+    private ToggleButton thirtyfivetofourtyfour;
+    @FXML
+    private ToggleButton fourtyfivetofiftyfour;
+    @FXML
+    private ToggleButton abovefiftyfive;
+
+    @FXML
+    private ToggleButton socialmedia;
+    @FXML
+    private ToggleButton shopping;
+    @FXML
+    private ToggleButton blog;
+    @FXML
+    private ToggleButton news;
+    @FXML
+    private ToggleButton hobbies;
+    @FXML
+    private ToggleButton travel;
+
+    @FXML
+    public void initialize() {
+        fields.getItems().addAll("impressions", "clicks", "uniques", "bounces",
+                "conversions", "total_cost", "ctr", "cpa", "cpc", "cpm", "bounce_rate");
+        chart.setLegendVisible(false);
+
+    }
 
 
-  public void switchtoNewUsers(ActionEvent event) throws IOException{
+    public void switchtoNewUsers(ActionEvent event) throws IOException {
 
-    root = FXMLLoader.load(getClass().getResource("newusers.fxml"));
-    stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-    scene = new Scene(root);
-    stage.setScene(scene);
-    stage.show();
-    
-  }
+        root = FXMLLoader.load(getClass().getResource("newusers.fxml"));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
 
-  public void switchtoExport(ActionEvent event) throws IOException{
+    }
 
-    root = FXMLLoader.load(getClass().getResource("export.fxml"));
-    stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-    scene = new Scene(root);
-    stage.setScene(scene);
-    stage.show();
-    
-  }
+    public void switchtoExport(ActionEvent event) throws IOException {
 
-  public void switchtoImport(ActionEvent event) throws IOException{
+        root = FXMLLoader.load(getClass().getResource("export.fxml"));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
 
-    root = FXMLLoader.load(getClass().getResource("importdatabase.fxml"));
-    stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-    scene = new Scene(root);
-    stage.setScene(scene);
-    stage.show();
-    
-  }
+    }
 
-  
-  public void switchtoLogin(ActionEvent event) throws IOException{
+    public void switchtoImport(ActionEvent event) throws IOException {
 
-    root = FXMLLoader.load(getClass().getResource("login.fxml"));
-    stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-    scene = new Scene(root);
-    stage.setScene(scene);
-    stage.show();
-    
-  }
+        root = FXMLLoader.load(getClass().getResource("importdatabase.fxml"));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+
+    }
 
 
-  public void switchtoMetrics(ActionEvent event) throws IOException{
+    public void switchtoLogin(ActionEvent event) throws IOException {
 
-   root = FXMLLoader.load(getClass().getResource("metrics.fxml"));
-   stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-   scene = new Scene(root);
-   stage.setScene(scene);
-   stage.show();
-   
- }
+        root = FXMLLoader.load(getClass().getResource("login.fxml"));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
 
-  public void sidebartoggle(ActionEvent event) throws IOException{
+    }
 
-   if (!sidebar.isVisible()){
-      sidebar.setVisible(true);
-   }
-   else{
-      sidebar.setVisible(false);
-   }
- }
+
+    public void switchtoMetrics(ActionEvent event) throws IOException {
+
+        root = FXMLLoader.load(getClass().getResource("metrics.fxml"));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+
+    }
+
+    public void sidebartoggle(ActionEvent event) throws IOException {
+
+        if (!sidebar.isVisible()) {
+            sidebar.setVisible(true);
+        } else {
+            sidebar.setVisible(false);
+        }
+    }
 
     public void displayData(ActionEvent actionEvent) {
-        if(chart.getData() != null)
+        if (chart.getData() != null)
             chart.getData().clear();
 
-        String query = Database.getGraphQuery(fields.getValue(), "week", new String[]{}, new String[]{},
-                new String[]{}, new String[]{}, "pages", 3, "", "");
+        String bounceDef = "time";
+        if (pages.isSelected()) bounceDef = "pages";
+
+        ArrayList<String> gendersSelected = new ArrayList<>();
+        if (male.isSelected()) gendersSelected.add("male");
+        if (female.isSelected()) gendersSelected.add("female");
+
+        ArrayList<String> incomeSelected = new ArrayList<>();
+        if (low.isSelected()) incomeSelected.add("low");
+        if (medium.isSelected()) incomeSelected.add("medium");
+        if (high.isSelected()) incomeSelected.add("high");
+
+        ArrayList<String> ageSelected = new ArrayList<>();
+        if (undertwentyfive.isSelected()) ageSelected.add("<25");
+        if (twentyfivetothirtyfour.isSelected()) ageSelected.add("25-34");
+        if (thirtyfivetofourtyfour.isSelected()) ageSelected.add("35-44");
+        if (fourtyfivetofiftyfour.isSelected()) ageSelected.add("45-54");
+        if (abovefiftyfive.isSelected()) ageSelected.add(">54");
+
+        ArrayList<String> contextSelected = new ArrayList<>();
+        if (socialmedia.isSelected()) contextSelected.add("Social Media");
+        if (shopping.isSelected()) contextSelected.add("Shopping");
+        if (blog.isSelected()) contextSelected.add("Blog");
+        if (news.isSelected()) contextSelected.add("News");
+        if (hobbies.isSelected()) contextSelected.add("Hobbies");
+        if (travel.isSelected()) contextSelected.add("Travel");
+
+        String query = Database.getGraphQuery(fields.getValue(), "week", gendersSelected, incomeSelected,
+                ageSelected, contextSelected, bounceDef, 3, startdate.getText(), enddate.getText());
         // TODO wire up to database
         System.out.println(query);
 
@@ -250,9 +323,7 @@ public class Dashboard2Controller {
   }
 */
 
-  
 
-  
 }
 
 
