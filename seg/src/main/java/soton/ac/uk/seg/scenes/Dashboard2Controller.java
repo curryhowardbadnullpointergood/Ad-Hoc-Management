@@ -1,12 +1,18 @@
 package soton.ac.uk.seg.scenes;
 
+import java.awt.image.RenderedImage;
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.almasb.fxgl.entity.action.Action;
 
+import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,10 +22,13 @@ import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import soton.ac.uk.seg.backend.Database;
 import soton.ac.uk.seg.backend.Sqlquery;
+
+import javax.imageio.ImageIO;
 
 public class Dashboard2Controller {
 
@@ -130,11 +139,22 @@ public class Dashboard2Controller {
     @FXML
     private ToggleButton travel;
 
+    private String timeFormat = "day";
+
     @FXML
     public void initialize() {
         fields.getItems().addAll("impressions", "clicks", "uniques", "bounces",
-                "conversions", "total_cost", "ctr", "cpa", "cpc", "cpm", "bounce_rate");
+                "conversions", "total_cost", "cpa", "cpm");
         chart.setLegendVisible(false);
+        chart.setAnimated(false);
+
+//        XYChart.Series<String, Number> blankData = new XYChart.Series<>();
+//        blankData.getData().add(new XYChart.Data("2024-02-03",  253));
+//        blankData.getData().add(new XYChart.Data("2024-02-03",  54));
+//        blankData.getData().add(new XYChart.Data("2024-02-03",  452));
+//        blankData.getData().add(new XYChart.Data("2024-02-03",  300));
+//
+//        chart.getData().add(blankData);
 
     }
 
@@ -201,8 +221,6 @@ public class Dashboard2Controller {
     }
 
     public void displayData(ActionEvent actionEvent) {
-        if (chart.getData() != null)
-            chart.getData().clear();
 
         String bounceDef = "time";
         if (pages.isSelected()) bounceDef = "pages";
@@ -231,7 +249,7 @@ public class Dashboard2Controller {
         if (hobbies.isSelected()) contextSelected.add("Hobbies");
         if (travel.isSelected()) contextSelected.add("Travel");
 
-        String query = Database.getGraphQuery(fields.getValue(), "day", gendersSelected, incomeSelected,
+        String query = Database.getGraphQuery(fields.getValue(), timeFormat, gendersSelected, incomeSelected,
                 ageSelected, contextSelected, bounceDef, 3, startdate.getText(), enddate.getText());
 
         XYChart.Series<String, Number> data = Sqlquery.graphQuery(query);
@@ -245,6 +263,76 @@ public class Dashboard2Controller {
 //        data.getData().add(new XYChart.Data("25204", 345));
 //        data.getData().add(new XYChart.Data("206204", 2345));
         chart.getData().add(data);
+
+
+//        chart.applyCss();
+//        chart.layout();
+//        try {
+//            Thread.sleep(100);
+//        } catch(InterruptedException e) {}
+//
+//        chart.applyCss();
+//        chart.layout();
+//        chart.getData().clear();
+//        chart.getData().add(data);
+    }
+
+    public void toHour(ActionEvent actionEvent) {
+        timeFormat = "hour";
+    }
+
+    public void toDay(ActionEvent actionEvent) {
+        timeFormat = "day";
+    }
+
+    public void toWeek(ActionEvent actionEvent) {
+        timeFormat = "week";
+    }
+
+    public void exportData(ActionEvent actionEvent) {
+
+        WritableImage i = chart.snapshot(null, null);
+        RenderedImage ri = SwingFXUtils.fromFXImage(i, null);
+        File f = new File("graph.png");
+        try {
+            ImageIO.write(ri, "png", f);
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+        // Get the list of all data series in the chart
+        ObservableList<XYChart.Series<String, Number>> allSeries = chart.getData();
+
+        // Iterate over each series
+        StringBuilder exportCsv = new StringBuilder("date,value\n");
+        for (XYChart.Series<String, Number> series : allSeries) {
+            // Get the name of the series (if set)
+            String seriesName = series.getName();
+
+            // Get the data points in the series
+            ObservableList<XYChart.Data<String, Number>> dataPoints = series.getData();
+
+            // Iterate over each data point
+            for (XYChart.Data<String, Number> dataPoint : dataPoints) {
+                // Get the X and Y values of the data point
+                String x = dataPoint.getXValue();
+                Number y = dataPoint.getYValue();
+
+                // Now you can use the data as needed
+                exportCsv.append(x).append(",").append(y).append("\n");
+            }
+        }
+
+        try {
+            Files.write(Paths.get("data.csv"), exportCsv.toString().getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void clearGraph(ActionEvent actionEvent) {
+        if (chart.getData() != null)
+            chart.getData().clear();
     }
 
 

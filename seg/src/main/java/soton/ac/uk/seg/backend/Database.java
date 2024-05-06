@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.*;
 import java.util.List;
+import java.util.Objects;
 
 public class Database {
     Connection conn;
@@ -281,10 +282,10 @@ public class Database {
         if(bounceDef == "time") bounceLogic = "strftime('%Y-%m-%d %H:%M:%S', servers.\"Exit Date\") - strftime('%Y-%m-%d %H:%M:%S', servers.\"Entry Date\") <= " + bounceNum;
 
         String startDateFilter = "true";
-//        if(startDate != "") startDateFilter = "impressions.Date >= '" + startDate + "'";
+        if(!Objects.equals(startDate, "")) startDateFilter = "impressions.Date >= '" + startDate + "'";
 
         String endDateFilter = "true";
-//        if(endDate != "") endDateFilter = "impressions.Date <= '" + endDate + "'";
+        if(!Objects.equals(endDate, "")) endDateFilter = "impressions.Date <= '" + endDate + "'";
 
         query = query.replaceAll("<filter>", filterStatement + " AND " + startDateFilter + " AND " + endDateFilter);
         query = query.replaceAll("<time interval>", timeGrouping);

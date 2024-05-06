@@ -21,6 +21,8 @@ module soton.ac.uk.seg {
     requires com.google.api.client.extensions.jetty.auth;
     requires com.google.api.client.auth;
     requires com.google.api.client.extensions.java6.auth;
+    requires java.desktop;
+    requires javafx.swing;
 
     opens soton.ac.uk.seg to javafx.fxml;
     exports soton.ac.uk.seg;

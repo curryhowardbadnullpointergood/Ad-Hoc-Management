@@ -26,7 +26,7 @@
       </LineChart>
       <TextField fx:id="startdate" layoutX="550.0" layoutY="745.0" />
       <TextField fx:id="enddate" layoutX="722.0" layoutY="745.0" />
-      <Button layoutX="894.0" layoutY="745.0" mnemonicParsing="false" style="-fx-background-color: #b2d8d8; -fx-background-radius: 5px;" text="Submit" textFill="#004444" />
+      <Button layoutX="894.0" layoutY="745.0" mnemonicParsing="false" onAction="#displayData" style="-fx-background-color: #b2d8d8; -fx-background-radius: 5px;" text="Submit" textFill="#004444" />
       <Button fx:id="allmenu" layoutX="-1.0" mnemonicParsing="false" onAction="#sidebartoggle" prefHeight="45.0" prefWidth="80.0" style="-fx-background-color: #b2d8d8;">
          <graphic>
             <FontAwesomeIconView fx:id="menu" fill="#004444" glyphName="BARS" size="30" />
@@ -34,13 +34,13 @@
       </Button>
       <VBox fx:id="sidebar" layoutX="-1.0" layoutY="46.0" prefHeight="757.0" prefWidth="196.0" style="-fx-background-color: #004444; -fx-background-radius: 15px;">
          <children>
-            <ScrollPane prefHeight="1136.0" prefWidth="196.0" style="-fx-background-radius: opx;" stylesheets="@style.css">
+            <ScrollPane prefHeight="1300.0" prefWidth="196.0" style="-fx-background-radius: opx;" stylesheets="@style.css">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1132.0" prefWidth="178.0" style="-fx-background-color: #b2d8d8; -fx-background-radius: 0px;">
                      <children>
                         <Button fx:id="compare" layoutX="20.0" layoutY="146.0" mnemonicParsing="false" style="-fx-background-color: #004444; -fx-border-color: #006666; -fx-border-radius: 5px;" styleClass="rounded-button" stylesheets="@../java/soton/ac/uk/seg/scenes/style.css" text="Compare" textFill="#b2d8d8" />
                         <Button layoutX="20.0" layoutY="102.0" mnemonicParsing="false" onAction="#switchtoNewUsers" style="-fx-background-color: #004444;" text="Add Users" textFill="#b2d8d8" />
-                        <Button layoutX="20.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchtoExport" style="-fx-background-color: #004444;" text="Export" textFill="#b2d8d8" />
+                        <Button layoutX="20.0" layoutY="14.0" mnemonicParsing="false" onAction="#exportData" style="-fx-background-color: #004444;" text="Export" textFill="#b2d8d8" />
                         <Button fx:id="importbutton" layoutX="20.0" layoutY="58.0" mnemonicParsing="false" onAction="#switchtoImport" style="-fx-background-color: #004444;" text="Import" textFill="#b2d8d8" />
                         <Text fill="#002222" layoutX="19.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bounce">
                            <font>
@@ -175,13 +175,14 @@
                         <Text fill="#002222" layoutX="48.0" layoutY="753.0" strokeType="OUTSIDE" strokeWidth="0.0" text="News" />
                         <Text fill="#002222" layoutX="48.0" layoutY="776.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hobbies" />
                         <Text fill="#002222" layoutX="48.0" layoutY="799.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Travel" />
-                        <Button fx:id="hour" layoutX="20.0" layoutY="821.0" mnemonicParsing="false" style="-fx-background-color: #004444; -fx-border-color: #006666; -fx-border-radius: 5px;" text="Hour" textFill="#b2d8d8" />
-                        <Button fx:id="day" layoutX="20.0" layoutY="866.0" mnemonicParsing="false" style="-fx-background-color: #004444; -fx-border-color: #006666; -fx-border-radius: 5px;" text="Day" textFill="#b2d8d8" />
-                        <Button fx:id="week" layoutX="20.0" layoutY="912.0" mnemonicParsing="false" style="-fx-background-color: #004444; -fx-border-color: #006666; -fx-border-radius: 5px;" text="Week" textFill="#b2d8d8" />
-                        <ChoiceBox fx:id="fields" layoutX="20.0" layoutY="958.0" prefHeight="28.0" prefWidth="129.0" style="-fx-background-color: #004444; -fx-border-color: #006666; -fx-border-radius: 5px;" />
+                        <Button fx:id="hour" layoutX="20.0" layoutY="821.0" onAction="#toHour" mnemonicParsing="false" style="-fx-background-color: #004444; -fx-border-color: #006666; -fx-border-radius: 5px;" text="Hour" textFill="#b2d8d8" />
+                        <Button fx:id="day" layoutX="20.0" layoutY="866.0" onAction="#toDay" mnemonicParsing="false" style="-fx-background-color: #004444; -fx-border-color: #006666; -fx-border-radius: 5px;" text="Day" textFill="#b2d8d8" />
+<!--                        <Button fx:id="week" layoutX="20.0" layoutY="912.0" onAction="#toWeek" mnemonicParsing="false" style="-fx-background-color: #004444; -fx-border-color: #006666; -fx-border-radius: 5px;" text="Week" textFill="#b2d8d8" />-->
+                        <ChoiceBox fx:id="fields" layoutX="20.0" layoutY="912.0" prefHeight="28.0" prefWidth="129.0" style="-fx-border-color: #006666; -fx-border-radius: 5px;" />
                         <Button layoutX="19.0" layoutY="1004.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="62.0" style="-fx-background-color: #004444;" text="Filter" textFill="#b2d8d8" />
                         <Button fx:id="displayData" layoutX="16.0" layoutY="1083.0" mnemonicParsing="false" onAction="#displayData" prefHeight="26.0" prefWidth="92.0" style="-fx-background-color: #004444; -fx-background-radius: 15px;" text="Display" textFill="#b2d8d8" />
-                        <Button fx:id="goback" layoutX="16.0" layoutY="1183.0" mnemonicParsing="false" onAction="#switchtoLogin" prefHeight="26.0" prefWidth="92.0" style="-fx-background-color: #004444; -fx-background-radius: 15px;" text="Logout" textFill="#b2d8d8" />
+                        <Button fx:id="clearGraph" layoutX="16.0" layoutY="958.0" mnemonicParsing="false" onAction="#clearGraph" prefHeight="26.0" prefWidth="92.0" style="-fx-background-color: #004444; -fx-background-radius: 15px;" text="Clear graph" textFill="#b2d8d8" />
+                        <Button fx:id="goback" layoutX="16.0" layoutY="1283.0" mnemonicParsing="false" onAction="#switchtoLogin" prefHeight="26.0" prefWidth="92.0" style="-fx-background-color: #004444; -fx-background-radius: 15px;" text="Logout" textFill="#b2d8d8" />
                         <Button fx:id="metrics" layoutX="19.0" layoutY="1044.0" mnemonicParsing="false" onAction="#switchtoMetrics" style="-fx-background-color: #004444;" text="Metrics" textFill="#b2d8d8" />
                      </children>
                   </AnchorPane>
