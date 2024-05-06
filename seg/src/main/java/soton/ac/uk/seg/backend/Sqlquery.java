@@ -1,5 +1,7 @@
 package soton.ac.uk.seg.backend;
 
+import javafx.scene.chart.XYChart;
+
 import java.sql.*;
 
 public class Sqlquery {
@@ -384,6 +386,46 @@ public class Sqlquery {
     }
 
 
+    public static XYChart.Series<String, Number> graphQuery(String query) {
+        Connection connection = null;
+        ResultSet resultSet = null;
+        Statement statement;
+        XYChart.Series<String, Number> graphData = new XYChart.Series<>();
+        try {
+            connection = DriverManager.getConnection("jdbc:sqlite:./src/main/java/soton/ac/uk/seg/backend/database/data.db");
+
+            // Step 2: Create a Statement object
+            statement = connection.createStatement();
+
+            // Step 3: Execute the SQL query
+            resultSet = statement.executeQuery(query);
+
+            // Step 4: Process the results
+
+
+            try {
+                while (resultSet.next()) {
+                    String date = resultSet.getString(1);
+                    int num = resultSet.getInt(2);
+
+                    graphData.getData().add(new XYChart.Data(date,  num));
+
+                }
+            } catch(SQLException e) {}
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Step 5: Close connection
+            try {
+                if (connection != null)
+                    connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return graphData;
+    }
 
 
 

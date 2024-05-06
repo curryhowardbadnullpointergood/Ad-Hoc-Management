@@ -1,6 +1,8 @@
 package soton.ac.uk.seg.scenes;
 
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.almasb.fxgl.entity.action.Action;
@@ -17,6 +19,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import soton.ac.uk.seg.backend.Database;
+import soton.ac.uk.seg.backend.Sqlquery;
 
 public class Dashboard2Controller {
 
@@ -228,17 +231,19 @@ public class Dashboard2Controller {
         if (hobbies.isSelected()) contextSelected.add("Hobbies");
         if (travel.isSelected()) contextSelected.add("Travel");
 
-        String query = Database.getGraphQuery(fields.getValue(), "week", gendersSelected, incomeSelected,
+        String query = Database.getGraphQuery(fields.getValue(), "day", gendersSelected, incomeSelected,
                 ageSelected, contextSelected, bounceDef, 3, startdate.getText(), enddate.getText());
+
+        XYChart.Series<String, Number> data = Sqlquery.graphQuery(query);
+
         // TODO wire up to database
         System.out.println(query);
 
 
-        XYChart.Series<String, Number> data = new XYChart.Series<>();
-        data.getData().add(new XYChart.Data("20204", 12345));
-        data.getData().add(new XYChart.Data("24204", 122345));
-        data.getData().add(new XYChart.Data("25204", 345));
-        data.getData().add(new XYChart.Data("206204", 2345));
+
+//        data.getData().add(new XYChart.Data("24204", 122345));
+//        data.getData().add(new XYChart.Data("25204", 345));
+//        data.getData().add(new XYChart.Data("206204", 2345));
         chart.getData().add(data);
     }
 
