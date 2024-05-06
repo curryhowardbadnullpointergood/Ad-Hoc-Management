@@ -2,11 +2,7 @@ package soton.ac.uk.seg.backend;
 
 
 
-import javax.mail.*;
-import javax.mail.internet.*;
-
 import java.util.Properties;
-import soton.ac.uk.seg.backend.LoginDatabase;
 
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
@@ -30,7 +26,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Paths;
-import java.util.Properties;
 import java.util.Set;
 
 import static com.google.api.services.gmail.GmailScopes.GMAIL_SEND;
@@ -38,7 +33,7 @@ import static javax.mail.Message.RecipientType.TO;
 
 public class GMailer {
 
-    private static final String TEST_EMAIL = "<your-gmail-address>";
+    private static final String EMAIL = "advantseg@gmail.com ";
     private final Gmail service;
 
     public GMailer() throws Exception {
@@ -51,7 +46,7 @@ public class GMailer {
 
     private static Credential getCredentials(final NetHttpTransport httpTransport, GsonFactory jsonFactory)
             throws IOException {
-        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(jsonFactory, new InputStreamReader(GMailer.class.getResourceAsStream("/<your_client_secret>.json")));
+        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(jsonFactory, new InputStreamReader(GMailer.class.getResourceAsStream("/client_secret_879319697158-7oeheumlspnj739go5i4ccfocou5rq2j.apps.googleusercontent.com.json")));
 
         GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
                 httpTransport, jsonFactory, clientSecrets, Set.of(GMAIL_SEND))
@@ -63,12 +58,15 @@ public class GMailer {
         return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
     }
 
-    public void sendMail(String subject, String message) throws Exception {
+    public void sendMail(String remail, String rpassword) throws Exception {
+
+        String subject = "Recover Password";
+        String message = "Password :: " + rpassword;
         Properties props = new Properties();
         Session session = Session.getDefaultInstance(props, null);
         MimeMessage email = new MimeMessage(session);
-        email.setFrom(new InternetAddress(TEST_EMAIL));
-        email.addRecipient(TO, new InternetAddress(TEST_EMAIL));
+        email.setFrom(new InternetAddress(EMAIL));
+        email.addRecipient(TO, new InternetAddress(remail));
         email.setSubject(subject);
         email.setText(message);
 
@@ -94,14 +92,7 @@ public class GMailer {
     }
 
     public static void main(String[] args) throws Exception {
-        new GMailer().sendMail("A new message", """
-                Dear reader,
-                                
-                Hello world.
-                                
-                Best regards,
-                myself
-                """);
+        new GMailer().sendMail("darkovl10@gmail.com" , "pp");
     }
 
 }

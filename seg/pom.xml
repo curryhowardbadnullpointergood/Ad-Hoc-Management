@@ -43,6 +43,7 @@
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-controls</artifactId>
       <version>21</version>
+       <classifier>linux</classifier>
     </dependency>
     <dependency>
       <groupId>javax.mail</groupId>
@@ -53,6 +54,7 @@
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-fxml</artifactId>
       <version>21</version>
+       <classifier>linux</classifier>
     </dependency>
     <dependency>
       <groupId>de.jensd</groupId>
@@ -63,20 +65,24 @@
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-web</artifactId>
       <version>21</version>
+       <classifier>linux</classifier>
     </dependency>
       <dependency>
         <groupId>org.openjfx</groupId>
         <artifactId>javafx-swing</artifactId>
         <version>21</version>
+         <classifier>linux</classifier>
       </dependency>
 <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-media</artifactId>
       <version>21</version>
+       <classifier>linux</classifier>
     </dependency><dependency>
       <groupId>org.controlsfx</groupId>
       <artifactId>controlsfx</artifactId>
       <version>11.1.2</version>
+       
     </dependency><dependency>
       <groupId>com.dlsc.formsfx</groupId>
       <artifactId>formsfx-core</artifactId>
@@ -85,6 +91,7 @@
         <exclusion>
           <groupId>org.openjfx</groupId>
           <artifactId>*</artifactId>
+        
         </exclusion>
       </exclusions>
     </dependency><dependency>
@@ -95,12 +102,14 @@
         <exclusion>
           <groupId>org.openjfx</groupId>
           <artifactId>*</artifactId>
+           
         </exclusion>
       </exclusions>
     </dependency><dependency>
       <groupId>org.kordamp.ikonli</groupId>
       <artifactId>ikonli-javafx</artifactId>
       <version>12.3.1</version>
+      
     </dependency><dependency>
       <groupId>org.kordamp.bootstrapfx</groupId>
       <artifactId>bootstrapfx-core</artifactId>
@@ -139,61 +148,93 @@
       <scope>test</scope>
     </dependency>  </dependencies>
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.11.0</version>
-        <configuration>
-          <source>21</source>
-          <target>21</target>
-        </configuration>
-      </plugin>
+ 
      
+     
+
+
+
+
+
+
+  <build>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.11.0</version>
+          <configuration>
+            <source>17</source>
+            <target>17</target>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.openjfx</groupId>
+          <artifactId>javafx-maven-plugin</artifactId>
+          <version>0.0.8</version>
+          <executions>
+            <execution>
+              <!-- Default configuration for running with: mvn clean javafx:run -->
+              <id>default-cli</id>
+              <configuration>
+                <mainClass>soton.ac.uk.seg.scenes.Main</mainClass>
+                <launcher>app</launcher>
+                <jlinkZipName>app</jlinkZipName>
+                <jlinkImageName>app</jlinkImageName>
+                <noManPages>true</noManPages>
+                <stripDebug>true</stripDebug>
+                <noHeaderFiles>true</noHeaderFiles>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
       <plugin>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <version>3.7.1</version>
-        <configuration>
-          <descriptorRefs>
-            <descriptorRef>jar-with-dependencies</descriptorRef>
-          </descriptorRefs>
-            <archive>
-            <manifest>
-              <mainClass>soton/ac/uk/seg/scenes/Main</mainClass>
-            </manifest>
-          </archive>
-        </configuration>
-        <executions>
-          <execution>
-            <id>make-assembly</id> <!-- this is used for inheritance merges -->
-            <phase>package</phase> <!-- bind to the packaging phase -->
-            <goals>
-              <goal>single</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.openjfx</groupId>
-        <artifactId>javafx-maven-plugin</artifactId>
-        <version>0.0.8</version>
-        <executions>
-          <execution>
-            <!-- Default configuration for running with: mvn clean javafx:run -->
-            <id>default-cli</id>
-            <configuration>
-              <mainClass>soton/ac/uk/seg/scenes/Main</mainClass>
-              <launcher>app</launcher>
-              <jlinkZipName>app</jlinkZipName>
-              <jlinkImageName>app</jlinkImageName>
-              <noManPages>true</noManPages>
-              <stripDebug>true</stripDebug>
-              <noHeaderFiles>true</noHeaderFiles>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
-</project>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-shade-plugin</artifactId>
+        <version>3.5.2</version>
+      <executions>
+        <execution>
+          <phase>package</phase>
+          <goals>
+            <goal>shade</goal>
+          </goals>
+          <configuration>
+            <shadedArtifactAttached>true</shadedArtifactAttached>
+            <transformers>
+              <transformer implementation=
+                                  "org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                <mainClass>soton.ac.uk.seg.scenes.Main</mainClass>
+              </transformer>
+            </transformers>
+          </configuration>
+        </execution>
+      </executions>
+    </plugin>
+        <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-assembly-plugin</artifactId>
+              <configuration>
+                <archive>
+                  <manifest>
+                    <addClasspath>true</addClasspath>
+                    <mainClass>
+                      soton.ac.uk.seg.scenes.Main
+                    </mainClass>
+                  </manifest>              
+                </archive>
+                <descriptorRefs>
+                  <descriptorRef>jar-with-dependencies</descriptorRef>
+                </descriptorRefs>
+              </configuration>
+          <executions>
+            <execution>
+              <phase>package</phase>
+              <goals>
+                <goal>single</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+      </plugins>
+    </build>
+  </project>

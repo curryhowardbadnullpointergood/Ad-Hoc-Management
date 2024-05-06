@@ -1,6 +1,9 @@
 package soton.ac.uk.seg.scenes;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,7 +15,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import soton.ac.uk.seg.backend.LoginDatabase;
+import soton.ac.uk.seg.backend.Sqlquery;
 public class MetricsController {
+
+    Sqlquery sqlq = new Sqlquery();
+    
+
 
     private Stage stage;
     private Scene scene; 
@@ -64,73 +72,85 @@ public class MetricsController {
   }
 
   @FXML
-  private void displayImpressions(){
-     int number = 42; 
+  private void displayImpressions() throws SQLException{
+   Connection conn = DriverManager.getConnection("jdbc:sqlite:./src/main/java/soton/ac/uk/seg/backend/database/data.db");
+   double number = sqlq.queryImperssion(conn); 
+     
      numofimpressions.setText(String.valueOf(number));
   }
 
   @FXML
-  private void displayUniques(){
-     int number = 42; 
+  private void displayUniques() throws SQLException{
+   Connection conn = DriverManager.getConnection("jdbc:sqlite:./src/main/java/soton/ac/uk/seg/backend/database/data.db");
+     double number = sqlq.queryUniques(conn); 
      numofuniques.setText(String.valueOf(number));
   }
 
   @FXML
-  private void displayclicks(){
-     int number = 42; 
+  private void displayclicks() throws SQLException{
+   Connection conn = DriverManager.getConnection("jdbc:sqlite:./src/main/java/soton/ac/uk/seg/backend/database/data.db");
+     double number = sqlq.queryClick(conn); 
      numofclicks.setText(String.valueOf(number));
   }
 
   @FXML
-  private void displaybounces(){
-     int number = 42; 
+  private void displaybounces() throws SQLException{
+   Connection conn = DriverManager.getConnection("jdbc:sqlite:./src/main/java/soton/ac/uk/seg/backend/database/data.db");
+     double number = sqlq.queryBounce(conn); 
      numofbounces.setText(String.valueOf(number));
   }
 
   @FXML
-  private void displayconversions(){
-     int number = 42; 
+  private void displayconversions() throws SQLException{
+   Connection conn = DriverManager.getConnection("jdbc:sqlite:./src/main/java/soton/ac/uk/seg/backend/database/data.db");
+   double number = sqlq.queryConversion(conn); 
      numofconversions.setText(String.valueOf(number));
   }
 
   @FXML
-  private void displayctr(){
-     int number = 42; 
+  private void displayctr() throws SQLException{
+   Connection conn = DriverManager.getConnection("jdbc:sqlite:./src/main/java/soton/ac/uk/seg/backend/database/data.db");
+   double number = sqlq.queryCTR(conn); 
      ctr.setText(String.valueOf(number));
   }
 
   @FXML
-  private void displaycpa(){
-     int number = 42; 
+  private void displaycpa() throws SQLException{
+   Connection conn = DriverManager.getConnection("jdbc:sqlite:./src/main/java/soton/ac/uk/seg/backend/database/data.db");
+   double number = sqlq.queryCPA(conn);  
      cpa.setText(String.valueOf(number));
   }
 
   @FXML
-  private void displaycpc(){
-     int number = 42; 
+  private void displaycpc() throws SQLException{
+   Connection conn = DriverManager.getConnection("jdbc:sqlite:./src/main/java/soton/ac/uk/seg/backend/database/data.db");
+   double number = sqlq.queryCPC(conn);  
      cpc.setText(String.valueOf(number));
   }
 
   @FXML
-  private void displaycpm(){
-     int number = 42; 
+  private void displaycpm() throws SQLException{
+   Connection conn = DriverManager.getConnection("jdbc:sqlite:./src/main/java/soton/ac/uk/seg/backend/database/data.db");
+     double number = sqlq.queryCPM(conn); 
      cpm.setText(String.valueOf(number));
   }
 
   @FXML
-  private void displaybouncerate(){
-     int number = 42; 
+  private void displaybouncerate() throws SQLException{
+   Connection conn = DriverManager.getConnection("jdbc:sqlite:./src/main/java/soton/ac/uk/seg/backend/database/data.db");
+   double number = sqlq.queryBounceRate(conn);  
      bouncerate.setText(String.valueOf(number));
   }
 
   @FXML
-  private void displaytotalcost(){
-     int number = 42; 
+  private void displaytotalcost() throws SQLException{
+   Connection conn = DriverManager.getConnection("jdbc:sqlite:./src/main/java/soton/ac/uk/seg/backend/database/data.db");
+   double number = sqlq.queryTotalCost(conn);  
      totalcost.setText(String.valueOf(number));
   }
 
   @FXML
-  private void initialize() {
+  private void initialize() throws SQLException {
 
     this.displayImpressions();
     this.displayUniques();

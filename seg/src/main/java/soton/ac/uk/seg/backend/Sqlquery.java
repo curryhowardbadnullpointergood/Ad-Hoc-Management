@@ -7,16 +7,31 @@ public class Sqlquery {
 
         try {
             // Establish database connection
-            Connection connectionClicks = DriverManager.getConnection("jdbc:sqlite:./src/main/java/soton/ac/uk/seg/backend/database/clicks.db");
-            Connection connectionImpressions = DriverManager.getConnection("jdbc:sqlite:./src/main/java/soton/ac/uk/seg/backend/database/impressions.db");
-            Connection connectionServers = DriverManager.getConnection("jdbc:sqlite:./src/main/java/soton/ac/uk/seg/backend/database/servers.db");
+            Connection connection = DriverManager.getConnection("jdbc:sqlite:./src/main/java/soton/ac/uk/seg/backend/database/data.db");
 
              // Execute the query
-             double result = executeQuery(connectionClicks, connectionServers);
+             double result = queryBounceRate(connection);
+             double resultBounce = queryBounce(connection);
+             double resultClicks = queryClick(connection);
+             double resultConversion = queryConversion(connection);
+             double resultCPA = queryCPA(connection);
+             double resultCPC = queryCPC(connection);
+             double resultCPM = queryCPM(connection);
+             double resultCTR = queryCTR(connection);
+             double resultImperssion = queryImperssion(connection);
+             double resultTotalCost = queryTotalCost(connection);
+             double resultUniques = queryUniques(connection);
+
+
+
+
+
+
 
              // Print the result
-             System.out.println("Result: " + result);
-
+             System.out.println("ResultBounceRate: " + result + "\n" + "ResultBounce: " + resultBounce + "\n"  + "ResultClicks: " + resultClicks + "\n"+ "ResultConversion: " + resultConversion + "\n" );
+             System.out.println("ResultCPA: " + resultCPA + "\n" + "ResultCPC: " + resultCPC + "\n" + "ResultCPM: " + resultCPM + "\n" + "ResultCTR: " + resultCTR + "\n" + "ResultImpressions: " + resultImperssion + "\n");
+             System.out.println("ResultTotalCost: " + resultTotalCost + "\n" + "ResultUniques: " + resultUniques + "\n");
 
 
         } catch (SQLException e) {
@@ -25,47 +40,351 @@ public class Sqlquery {
     }
 
 
-    public static double executeQuery(Connection clicksConnection, Connection serversConnection) throws SQLException {
+
+    public static double queryBounceRate(Connection conn ) {
         double result = 0.0;
+        Connection connection = null;
+        try {
 
-        // Create statements for each connection
-        try (Statement clicksStatement = clicksConnection.createStatement();
-             Statement serversStatement = serversConnection.createStatement()) {
+            // Step 2: Create a Statement object
+            Statement statement = conn.createStatement();
 
-            // Execute the inner query to count clicks with "Pages Viewed" < 2
-            ResultSet innerResult = clicksStatement.executeQuery(
-                    "SELECT COUNT(*) FROM clicks " +
-                            "INNER JOIN servers ON clicks.ID = servers.ID " +
-                            "AND clicks.Date = servers.'Entry Date' " +
-                            "WHERE 'Pages Viewed' < 2");
+            // Step 3: Execute the SQL query
+            String query = "SELECT (SELECT COUNT(*) FROM clicks INNER JOIN servers ON clicks.\"ID\" = servers.\"ID\" AND clicks.\"Date\" = servers.\"Entry Date\" WHERE \"Pages Viewed\" < 2) * 1.0 / (SELECT COUNT(*) FROM clicks);";
+            ResultSet resultSet = statement.executeQuery(query);
 
-            // Get the count from the inner query
-            double innerCount = 0.0;
-            if (innerResult.next()) {
-                innerCount = innerResult.getDouble(1);
+            // Step 4: Process the results
+            if (resultSet.next()) {
+                result = resultSet.getDouble(1);
             }
 
-            // Close the inner result set
-            innerResult.close();
-
-            // Execute the outer query to count all clicks
-            ResultSet outerResult = clicksStatement.executeQuery("SELECT COUNT(*) FROM clicks");
-
-            // Get the total count of clicks
-            double totalCount = 0.0;
-            if (outerResult.next()) {
-                totalCount = outerResult.getDouble(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Step 5: Close connection
+            try {
+                if (connection != null)
+                    connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-
-            // Close the outer result set
-            outerResult.close();
-
-            // Calculate the result
-            result = innerCount / totalCount;
         }
-
         return result;
     }
+
+    public static double queryBounce(Connection conn ) {
+        double result = 0.0;
+        Connection connection = null;
+        try {
+
+            // Step 2: Create a Statement object
+            Statement statement = conn.createStatement();
+
+            // Step 3: Execute the SQL query
+            String query = "SELECT COUNT(*) FROM clicks INNER JOIN servers ON clicks.\"ID\" = servers.\"ID\" AND clicks.\"Date\" = servers.\"Entry Date\" WHERE \"Pages Viewed\" < 2;";
+            ResultSet resultSet = statement.executeQuery(query);
+
+            // Step 4: Process the results
+            if (resultSet.next()) {
+                result = resultSet.getDouble(1);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Step 5: Close connection
+            try {
+                if (connection != null)
+                    connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+
+    public static double queryClick(Connection conn ) {
+        double result = 0.0;
+        Connection connection = null;
+        try {
+
+            // Step 2: Create a Statement object
+            Statement statement = conn.createStatement();
+
+            // Step 3: Execute the SQL query
+            String query = "SELECT COUNT(*) FROM clicks;";
+            ResultSet resultSet = statement.executeQuery(query);
+
+            // Step 4: Process the results
+            if (resultSet.next()) {
+                result = resultSet.getDouble(1);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Step 5: Close connection
+            try {
+                if (connection != null)
+                    connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+
+    public static double queryConversion(Connection conn ) {
+        double result = 0.0;
+        Connection connection = null;
+        try {
+
+            // Step 2: Create a Statement object
+            Statement statement = conn.createStatement();
+
+            // Step 3: Execute the SQL query
+            String query = "SELECT COUNT(*) FROM clicks INNER JOIN servers ON clicks.\"ID\" = servers.\"ID\" AND clicks.\"Date\" = servers.\"Entry Date\" WHERE \"Conversion\" = 'Yes';";
+            ResultSet resultSet = statement.executeQuery(query);
+
+            // Step 4: Process the results
+            if (resultSet.next()) {
+                result = resultSet.getDouble(1);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Step 5: Close connection
+            try {
+                if (connection != null)
+                    connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+
+
+    public static double queryCPA(Connection conn ) {
+        double result = 0.0;
+        Connection connection = null;
+        try {
+
+            // Step 2: Create a Statement object
+            Statement statement = conn.createStatement();
+
+            // Step 3: Execute the SQL query
+            String query = "SELECT ((SELECT SUM(\"Click Cost\") FROM clicks) + (SELECT SUM(\"Impression Cost\") FROM impressions)) * 1.0 / (SELECT COUNT(*) FROM clicks INNER JOIN servers ON clicks.\"ID\" = servers.\"ID\" AND clicks.\"Date\" = servers.\"Entry Date\" WHERE \"Conversion\" = 'Yes');";
+            ResultSet resultSet = statement.executeQuery(query);
+
+            // Step 4: Process the results
+            if (resultSet.next()) {
+                result = resultSet.getDouble(1);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Step 5: Close connection
+            try {
+                if (connection != null)
+                    connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+
+    public static double queryCPC(Connection conn ) {
+        double result = 0.0;
+        Connection connection = null;
+        try {
+
+            // Step 2: Create a Statement object
+            Statement statement = conn.createStatement();
+
+            // Step 3: Execute the SQL query
+            String query = "SELECT ((SELECT SUM(\"Click Cost\") FROM clicks) + (SELECT SUM(\"Impression Cost\") FROM impressions)) * 1.0 / (SELECT COUNT(*) FROM clicks);";
+            ResultSet resultSet = statement.executeQuery(query);
+
+            // Step 4: Process the results
+            if (resultSet.next()) {
+                result = resultSet.getDouble(1);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Step 5: Close connection
+            try {
+                if (connection != null)
+                    connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+
+    public static double queryCPM(Connection conn ) {
+        double result = 0.0;
+        Connection connection = null;
+        try {
+
+            // Step 2: Create a Statement object
+            Statement statement = conn.createStatement();
+
+            // Step 3: Execute the SQL query
+            String query = "SELECT ((SELECT SUM(\"Click Cost\") FROM clicks) + (SELECT SUM(\"Impression Cost\") FROM impressions)) * 1000.0 / (SELECT COUNT(*) FROM impressions);";
+            ResultSet resultSet = statement.executeQuery(query);
+
+            // Step 4: Process the results
+            if (resultSet.next()) {
+                result = resultSet.getDouble(1);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Step 5: Close connection
+            try {
+                if (connection != null)
+                    connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+
+    public static double queryCTR(Connection conn ) {
+        double result = 0.0;
+        Connection connection = null;
+        try {
+
+            // Step 2: Create a Statement object
+            Statement statement = conn.createStatement();
+
+            // Step 3: Execute the SQL query
+            String query = "SELECT (SELECT COUNT(*) FROM clicks) * 1.0 / (SELECT COUNT(*) FROM impressions);";
+            ResultSet resultSet = statement.executeQuery(query);
+
+            // Step 4: Process the results
+            if (resultSet.next()) {
+                result = resultSet.getDouble(1);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Step 5: Close connection
+            try {
+                if (connection != null)
+                    connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+
+    public static double queryImperssion(Connection conn ) {
+        double result = 0.0;
+        Connection connection = null;
+        try {
+
+            // Step 2: Create a Statement object
+            Statement statement = conn.createStatement();
+
+            // Step 3: Execute the SQL query
+            String query = "SELECT COUNT(*) FROM impressions;";
+            ResultSet resultSet = statement.executeQuery(query);
+
+            // Step 4: Process the results
+            if (resultSet.next()) {
+                result = resultSet.getDouble(1);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Step 5: Close connection
+            try {
+                if (connection != null)
+                    connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+
+    public static double queryTotalCost(Connection conn ) {
+        double result = 0.0;
+        Connection connection = null;
+        try {
+
+            // Step 2: Create a Statement object
+            Statement statement = conn.createStatement();
+
+            // Step 3: Execute the SQL query
+            String query = "SELECT (SELECT SUM(\"Click Cost\") FROM clicks) + (SELECT SUM(\"Impression Cost\") FROM impressions);";
+            ResultSet resultSet = statement.executeQuery(query);
+
+            // Step 4: Process the results
+            if (resultSet.next()) {
+                result = resultSet.getDouble(1);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Step 5: Close connection
+            try {
+                if (connection != null)
+                    connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+
+    public static double queryUniques(Connection conn ) {
+        double result = 0.0;
+        Connection connection = null;
+        try {
+
+            // Step 2: Create a Statement object
+            Statement statement = conn.createStatement();
+
+            // Step 3: Execute the SQL query
+            String query = "SELECT COUNT(DISTINCT ID) FROM clicks;";
+            ResultSet resultSet = statement.executeQuery(query);
+
+            // Step 4: Process the results
+            if (resultSet.next()) {
+                result = resultSet.getDouble(1);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Step 5: Close connection
+            try {
+                if (connection != null)
+                    connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+
+
+
 
 
 
