@@ -15,11 +15,11 @@
                   <Font name="Cantarell Extra Bold" size="25.0" />
                </font>
             </Text>
-            <Button layoutX="253.0" layoutY="414.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="84.0" style="-fx-background-color: #b2d8d8; -fx-background-radius: 15px;" text="Submit" textFill="#004c4c" />
-            <Button layoutX="258.0" layoutY="136.0" mnemonicParsing="false" style="-fx-background-color: #b2d8d8; -fx-background-radius: 10px;" text="Click Log" textFill="#004c4c" />
-            <Button layoutX="238.0" layoutY="205.0" mnemonicParsing="false" style="-fx-background-color: #b2d8d8; -fx-background-radius: 10px;" text="Impression Log" textFill="#004c4c" />
-            <Button layoutX="253.0" layoutY="274.0" mnemonicParsing="false" style="-fx-background-color: #b2d8d8; -fx-background-radius: 10px;" text="Server Log" textFill="#004c4c" />
-            <Button layoutX="257.0" layoutY="345.0" mnemonicParsing="false" style="-fx-background-color: #b2d8d8; -fx-background-radius: 10px;" text="Database" textFill="#004c4c" />
+            <Button layoutX="253.0" layoutY="414.0" onAction="#loadDataIntoDB" mnemonicParsing="false" prefHeight="41.0" prefWidth="84.0" style="-fx-background-color: #b2d8d8; -fx-background-radius: 15px;" text="Submit" textFill="#004c4c" />
+            <Button layoutX="258.0" layoutY="136.0" onAction="#loadFile" mnemonicParsing="false" style="-fx-background-color: #b2d8d8; -fx-background-radius: 10px;" text="Click Log" textFill="#004c4c" />
+            <Button layoutX="238.0" layoutY="205.0" onAction="#loadFile" mnemonicParsing="false" style="-fx-background-color: #b2d8d8; -fx-background-radius: 10px;" text="Impression Log" textFill="#004c4c" />
+            <Button layoutX="253.0" layoutY="274.0" onAction="#loadFile" mnemonicParsing="false" style="-fx-background-color: #b2d8d8; -fx-background-radius: 10px;" text="Server Log" textFill="#004c4c" />
+            <Button layoutX="257.0" layoutY="345.0" onAction="#loadFile" mnemonicParsing="false" style="-fx-background-color: #b2d8d8; -fx-background-radius: 10px;" text="Database" textFill="#004c4c" />
          </children>
       </AnchorPane>
       <Button fx:id="goback" layoutX="28.0" layoutY="22.0" mnemonicParsing="false" onAction="#switchtoDashboard" prefHeight="30.0" prefWidth="43.0" style="-fx-background-color: #004c4c; -fx-background-radius: 15px;">
