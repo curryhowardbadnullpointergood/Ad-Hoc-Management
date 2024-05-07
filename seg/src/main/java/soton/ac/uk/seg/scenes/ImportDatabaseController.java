@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -145,28 +146,31 @@ public class ImportDatabaseController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
         File file = fileChooser.showOpenDialog(stage);
-        click = file.getAbsolutePath();
-
+        if(file != null)
+            click = file.getAbsolutePath();
     }
 
     public void loadImp(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
         File file = fileChooser.showOpenDialog(stage);
-        impression = file.getAbsolutePath();
+        if(file != null)
+            impression = file.getAbsolutePath();
     }
 
     public void loadServer(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
         File file = fileChooser.showOpenDialog(stage);
-        server = file.getAbsolutePath();
+        if(file != null)
+            server = file.getAbsolutePath();
     }
 
     public void loadDBLoc(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
         File file = fileChooser.showOpenDialog(stage);
-        dbLocation = file.getAbsolutePath();
+        if(file != null)
+            dbLocation = file.getAbsolutePath();
     }
 }
